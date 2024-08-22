@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CompanyFleetManager
 {
-    internal class FleetRepository
+    internal class Repository
     {
     }
 }
