@@ -21,5 +21,12 @@ namespace CompanyFleetManager.Models
         {
             return $"+{CountryCode}{MainNumber}";
         }
+
+        public static PhoneNumber ParseString(string str)
+        {
+            return new PhoneNumber(
+                int.Parse(str.Substring(1,2)), 
+                int.Parse(str.Substring(3)));
+        }
     }
 }

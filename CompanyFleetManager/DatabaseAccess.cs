@@ -10,71 +10,74 @@ namespace CompanyFleetManager
 {
     public class DatabaseAccess
     {
-        private DatabaseContext dbContext = new DatabaseContext();
+        private DatabaseContext DbContext;
 
-        public DatabaseAccess() { }
+        public DatabaseAccess(DatabaseContext dbContext)
+        {
+            DbContext = dbContext;
+        }
 
         public void AddVehicle(Vehicle vehicle)
         {
-            dbContext.Vehicles.Add(vehicle);
-            dbContext.SaveChanges();
+            DbContext.Vehicles.Add(vehicle);
+            DbContext.SaveChanges();
         }
 
         public void AddEmployee(Employee employee)
         {
-            dbContext.Employees.Add(employee);
-            dbContext.SaveChanges();
+            DbContext.Employees.Add(employee);
+            DbContext.SaveChanges();
         }
 
         public void AddRental(Rental rental)
         {
-            dbContext.Rentals.Add(rental);
-            dbContext.SaveChanges();
+            DbContext.Rentals.Add(rental);
+            DbContext.SaveChanges();
         }
 
-        public List<Vehicle> GetVehicles() => dbContext.Vehicles.ToList();
+        public List<Vehicle> GetVehicles() => DbContext.Vehicles.ToList();
 
-        public List<Employee> GetEmployees() => dbContext.Employees.ToList();
+        public List<Employee> GetEmployees() => DbContext.Employees.ToList();
 
-        public List<Rental> GetRentals() => dbContext.Rentals.ToList();
+        public List<Rental> GetRentals() => DbContext.Rentals.ToList();
 
         public void DeleteVehicle(Vehicle vehicle)
         {
-            dbContext.Vehicles.Remove(vehicle);
-            dbContext.SaveChanges();
+            DbContext.Vehicles.Remove(vehicle);
+            DbContext.SaveChanges();
         }
 
         public void DeleteAllVehicles()
         {
-            var all = from vehicles in dbContext.Vehicles select vehicles;
-            dbContext.Vehicles.RemoveRange(all);
-            dbContext.SaveChanges();
+            var all = from vehicles in DbContext.Vehicles select vehicles;
+            DbContext.Vehicles.RemoveRange(all);
+            DbContext.SaveChanges();
         }
 
         public void DeleteAllEmployees()
         {
-            var all = from employees in dbContext.Employees select employees;
-            dbContext.Employees.RemoveRange(all);
-            dbContext.SaveChanges();
+            var all = from employees in DbContext.Employees select employees;
+            DbContext.Employees.RemoveRange(all);
+            DbContext.SaveChanges();
         }
 
         public void DeleteEmployee(Employee employee)
         {
-            dbContext.Employees.Remove(employee);
-            dbContext.SaveChanges();
+            DbContext.Employees.Remove(employee);
+            DbContext.SaveChanges();
         }
 
         public void DeleteAllRentals()
         {
-            var all = from rentals in dbContext.Rentals select rentals;
-            dbContext.Rentals.RemoveRange(all);
-            dbContext.SaveChanges();
+            var all = from rentals in DbContext.Rentals select rentals;
+            DbContext.Rentals.RemoveRange(all);
+            DbContext.SaveChanges();
         }
 
         public void DeleteRentals(Rental rental)
         {
-            dbContext.Rentals.Remove(rental);
-            dbContext.SaveChanges();
+            DbContext.Rentals.Remove(rental);
+            DbContext.SaveChanges();
         }
     }
 }

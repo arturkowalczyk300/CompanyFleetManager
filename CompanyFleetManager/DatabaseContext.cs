@@ -1,4 +1,5 @@
-﻿using CompanyFleetManager.Models.Entities;
+﻿using CompanyFleetManager.Models;
+using CompanyFleetManager.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,34 @@ namespace CompanyFleetManager
             DbPath = "fleet.db";
         }
 
+        public DatabaseContext(DbContextOptions options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data source={DbPath}");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite($"Data source={DbPath}");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Employee>()
+                .Property(e => e.PrivatePhoneNumber)
+                .HasConversion(
+                v => v.ToString(),
+                v => PhoneNumber.ParseString(v));
+
+            modelBuilder
+                .Entity<Employee>()
+                .Property(e => e.WorkPhoneNumber)
+                .HasConversion(
+                v => v.ToString(),
+                v => PhoneNumber.ParseString(v));
         }
     }
 }
