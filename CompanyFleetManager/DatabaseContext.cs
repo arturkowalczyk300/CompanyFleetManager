@@ -15,11 +15,12 @@ namespace CompanyFleetManager
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Rental> Rentals { get; set; }
 
-        public string DbPath { get; }
+        public static string DatabaseFilename { get; set; } = "fleet.db";
+        public static string ConnectionString { get; set; } = $"Data Source={DatabaseFilename}";
+
 
         public DatabaseContext()
         {
-            DbPath = "fleet.db";
         }
 
         public DatabaseContext(DbContextOptions options) : base(options)
@@ -31,7 +32,7 @@ namespace CompanyFleetManager
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite($"Data source={DbPath}");
+                optionsBuilder.UseSqlite(ConnectionString);
             }
         }
 

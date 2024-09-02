@@ -210,3 +210,5 @@ C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\obj\Deb
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\obj\Debug\net8.0\CompanyFleetManagerTests.pdb
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\obj\Debug\net8.0\CompanyFleetManagerTests.genruntimeconfig.cache
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\obj\Debug\net8.0\ref\CompanyFleetManagerTests.dll
+C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerTests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.Design.dll

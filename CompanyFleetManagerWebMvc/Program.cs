@@ -1,3 +1,6 @@
+using CompanyFleetManager;
+using Microsoft.EntityFrameworkCore;
+
 namespace CompanyFleetManagerWebMvc
 {
     public class Program
@@ -5,6 +8,12 @@ namespace CompanyFleetManagerWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //Register DBContext 
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/O9EQVVcynM=",
+  "dgSpecHash": "MxMRLzPaB80=",
   "success": true,
   "projectFilePath": "C:\\Users\\artur\\source\\repos\\CompanyFleetManager\\CompanyFleetManagerTests\\CompanyFleetManagerTests.csproj",
   "expectedPackageFiles": [
@@ -20,8 +20,10 @@
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.8\\microsoft.entityframeworkcore.design.8.0.8.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\8.0.8\\microsoft.entityframeworkcore.inmemory.8.0.8.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.8\\microsoft.entityframeworkcore.relational.8.0.8.nupkg.sha512",
+    "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.relational.design\\1.1.6\\microsoft.entityframeworkcore.relational.design.1.1.6.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\8.0.8\\microsoft.entityframeworkcore.sqlite.8.0.8.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\8.0.8\\microsoft.entityframeworkcore.sqlite.core.8.0.8.nupkg.sha512",
+    "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.design\\1.1.6\\microsoft.entityframeworkcore.sqlite.design.1.1.6.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.8\\microsoft.entityframeworkcore.tools.8.0.8.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\artur\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.0\\microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",

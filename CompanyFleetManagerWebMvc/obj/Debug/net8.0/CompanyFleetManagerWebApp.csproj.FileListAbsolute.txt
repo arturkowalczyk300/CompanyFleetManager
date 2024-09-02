@@ -257,3 +257,6 @@ C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\De
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.Design.dll
