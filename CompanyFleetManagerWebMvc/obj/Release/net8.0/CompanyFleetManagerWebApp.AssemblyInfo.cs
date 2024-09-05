@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CompanyFleetManagerWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60f4deab615be1073ce7d8571fbe3f85c62a5d81")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1eb3ec57556bd63a88e9ea456d4f7c21ec142d83")]
 [assembly: System.Reflection.AssemblyProductAttribute("CompanyFleetManagerWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CompanyFleetManagerWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

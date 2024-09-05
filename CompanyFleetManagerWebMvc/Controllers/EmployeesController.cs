@@ -16,5 +16,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             var employees = DbContext.Employees.ToList();
             return View(employees);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

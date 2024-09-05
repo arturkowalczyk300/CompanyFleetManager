@@ -17,5 +17,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             var vehicles = DbContext.Vehicles.ToList();
             return View(vehicles);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

@@ -17,5 +17,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             var rentals = DbContext.Rentals.ToList();
             return View(rentals);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Artur\Documents\moje\DEVELOP\Projekty\.NET\CompanyFleetManager\CompanyFleetManagerWebMvc
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Employees/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Employees/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Rentals/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudGFsc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Rentals/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudGFsc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Vehicles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Artur/Documents/moje/DEVELOP/Projekty/.NET/CompanyFleetManager/CompanyFleetManagerWebMvc/Views/Vehicles/Index.cshtml]
