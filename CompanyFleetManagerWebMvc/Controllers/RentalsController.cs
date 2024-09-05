@@ -14,11 +14,6 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult IndexList()
-        {
             var rentals = DbContext.Rentals.ToList();
             return View(rentals);
         }

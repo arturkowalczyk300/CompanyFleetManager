@@ -1,6 +1,96 @@
-﻿@{
+﻿@model IEnumerable<CompanyFleetManager.Models.Entities.Employee>
+
+@{
     ViewData["Title"] = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Employees</h1>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Occupation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Forename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Middlename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NationalIdentityNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkPhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrivatePhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrivingLicenseCategories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrivingLicenseValidity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HiredUntil)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Occupation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Forename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Middlename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NationalIdentityNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrivatePhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrivingLicenseCategories)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrivingLicenseValidity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HiredUntil)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
