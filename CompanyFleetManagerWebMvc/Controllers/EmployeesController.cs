@@ -66,5 +66,32 @@ namespace CompanyFleetManagerWebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var employee = DbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+
+            if (employee == null)
+                return NotFound();
+
+            return View(employee);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditConfirmed(int id, Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                DbContext.Employees.Update(employee);
+                DbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }

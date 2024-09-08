@@ -66,5 +66,32 @@ namespace CompanyFleetManagerWebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var vehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            return View(vehicle);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditConfirmed(int id, Vehicle vehicle)
+        {
+            if (ModelState.IsValid)
+            {
+                DbContext.Vehicles.Update(vehicle);
+                DbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }

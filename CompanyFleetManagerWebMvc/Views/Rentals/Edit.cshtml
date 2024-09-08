@@ -1,0 +1,52 @@
+﻿@model CompanyFleetManager.Models.Entities.Rental
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+
+<h4>Rental</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RentalId" />
+            <div class="form-group">
+                <label asp-for="RentedVehicleId" class="control-label"></label>
+                <input asp-for="RentedVehicleId" class="form-control" />
+                <span asp-validation-for="RentedVehicleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentingEmployeeId" class="control-label"></label>
+                <input asp-for="RentingEmployeeId" class="form-control" />
+                <span asp-validation-for="RentingEmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentalDate" class="control-label"></label>
+                <input asp-for="RentalDate" class="form-control" />
+                <span asp-validation-for="RentalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlannedReturningDate" class="control-label"></label>
+                <input asp-for="PlannedReturningDate" class="form-control" />
+                <span asp-validation-for="PlannedReturningDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FactualReturningDate" class="control-label"></label>
+                <input asp-for="FactualReturningDate" class="form-control" />
+                <span asp-validation-for="FactualReturningDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,82 @@
+﻿@model CompanyFleetManager.Models.Entities.Employee
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmployeeId" />
+            <div class="form-group">
+                <label asp-for="Occupation" class="control-label"></label>
+                <input asp-for="Occupation" class="form-control" />
+                <span asp-validation-for="Occupation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Forename" class="control-label"></label>
+                <input asp-for="Forename" class="form-control" />
+                <span asp-validation-for="Forename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Middlename" class="control-label"></label>
+                <input asp-for="Middlename" class="form-control" />
+                <span asp-validation-for="Middlename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NationalIdentityNumber" class="control-label"></label>
+                <input asp-for="NationalIdentityNumber" class="form-control" />
+                <span asp-validation-for="NationalIdentityNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkPhoneNumber" class="control-label"></label>
+                <input asp-for="WorkPhoneNumber" class="form-control" />
+                <span asp-validation-for="WorkPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrivatePhoneNumber" class="control-label"></label>
+                <input asp-for="PrivatePhoneNumber" class="form-control" />
+                <span asp-validation-for="PrivatePhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrivingLicenseCategories" class="control-label"></label>
+                <input asp-for="DrivingLicenseCategories" class="form-control" />
+                <span asp-validation-for="DrivingLicenseCategories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrivingLicenseValidity" class="control-label"></label>
+                <input asp-for="DrivingLicenseValidity" class="form-control" />
+                <span asp-validation-for="DrivingLicenseValidity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HiredUntil" class="control-label"></label>
+                <input asp-for="HiredUntil" class="form-control" />
+                <span asp-validation-for="HiredUntil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
