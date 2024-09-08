@@ -38,5 +38,33 @@ namespace CompanyFleetManagerWebApp.Controllers
 
             return View(rental);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var rental = DbContext.Rentals.FirstOrDefault(r => r.RentalId == id);
+
+            if (rental == null)
+                return NotFound();
+
+            return View(rental);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var rental = DbContext.Rentals.Find(id);
+
+            if (rental == null)
+                return NotFound();
+
+            DbContext.Rentals.Remove(rental);
+            DbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
