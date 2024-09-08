@@ -8,10 +8,10 @@ namespace CompanyFleetManager.Models
 {
     public class PhoneNumber
     {
-        public int CountryCode = 48;
-        public int MainNumber;
+        public int? CountryCode = 48;
+        public int? MainNumber;
 
-        public PhoneNumber(int CountryCode, int MainNumber)
+        public PhoneNumber(int? CountryCode, int? MainNumber)
         {
             this.CountryCode = CountryCode;
             this.MainNumber = MainNumber;
@@ -19,14 +19,27 @@ namespace CompanyFleetManager.Models
 
         public override string ToString()
         {
+            if (CountryCode == null || MainNumber == null) return "INVALID";
+
             return $"+{CountryCode}{MainNumber}";
         }
 
         public static PhoneNumber ParseString(string str)
         {
-            return new PhoneNumber(
-                int.Parse(str.Substring(1,2)), 
-                int.Parse(str.Substring(3)));
+            PhoneNumber phoneNumber;
+
+            try
+            {
+                phoneNumber = new PhoneNumber(
+                   int.Parse(str.Substring(1, 2)),
+                   int.Parse(str.Substring(3)));
+            }
+            catch (Exception e)
+            {
+                phoneNumber = new PhoneNumber(null, null); //invalid phone number
+            }
+
+            return phoneNumber;
         }
     }
 }

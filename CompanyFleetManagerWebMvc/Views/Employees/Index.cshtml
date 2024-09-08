@@ -71,10 +71,10 @@
                 @Html.DisplayFor(modelItem => item.NationalIdentityNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WorkPhoneNumber)
+                @Html.DisplayFor(modelItem => item.WorkPhoneNumber, "PhoneNumber")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PrivatePhoneNumber)
+                    @Html.DisplayFor(modelItem => item.PrivatePhoneNumber, "PhoneNumber")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DrivingLicenseCategories)

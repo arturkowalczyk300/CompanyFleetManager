@@ -1,4 +1,5 @@
 ﻿using CompanyFleetManager;
+using CompanyFleetManager.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyFleetManagerWebApp.Controllers
@@ -18,9 +19,24 @@ namespace CompanyFleetManagerWebApp.Controllers
             return View(rentals);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Rental rental)
+        {
+            if (ModelState.IsValid)
+            {
+                DbContext.Rentals.Add(rental);
+                DbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(rental);
         }
     }
 }

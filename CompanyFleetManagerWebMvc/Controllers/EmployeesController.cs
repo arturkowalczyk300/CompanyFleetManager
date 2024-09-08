@@ -1,4 +1,5 @@
 ﻿using CompanyFleetManager;
+using CompanyFleetManager.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyFleetManagerWebApp.Controllers
@@ -17,9 +18,25 @@ namespace CompanyFleetManagerWebApp.Controllers
             return View(employees);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                DbContext.Employees.Add(employee);
+                DbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(employee);
         }
     }
 }

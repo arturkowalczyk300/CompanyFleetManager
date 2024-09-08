@@ -19,6 +19,13 @@ namespace CompanyFleetManager.Models.Entities
         public DateOnly VehicleInspectionValidity { get; set; }
         public bool IsDamaged { get; set; }
 
+        public Vehicle()
+        {
+            Model = "";
+            Brand = "";
+            LicencePlateNumber = "";
+        }
+
         public Vehicle(
             int vehicleId,
             string brand,

@@ -2,3 +2,7 @@ CompanyFleetManager/[Bb]in/
 CompanyFleetManager/[Oo]bj/
 CompanyFleetManager/fleet.db
 .vs/
+CompanyFleetManagerTests/[Bb]in/
+CompanyFleetManagerTests/[Oo]bj/
+CompanyFleetManagerWebMvc/[Bb]in/
+CompanyFleetManagerWebMvc/[Oo]bj/

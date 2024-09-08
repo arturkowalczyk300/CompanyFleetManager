@@ -25,6 +25,11 @@ namespace CompanyFleetManager.Models.Entities
         public DateTime PlannedReturningDate { get; set; }
         public DateTime? FactualReturningDate { get; set; }
 
+        public Rental()
+        {
+
+        }
+
         public Rental(int rentalId, int rentedVehicleId, int rentingEmployeeId, DateOnly rentalDate, DateTime plannedReturningDate, DateTime? factualReturningDate)
         {
             RentalId = rentalId;

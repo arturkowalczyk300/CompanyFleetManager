@@ -22,6 +22,16 @@ namespace CompanyFleetManager.Models.Entities
         public DateOnly DrivingLicenseValidity { get; set; }
         public DateOnly HiredUntil { get; set; }
 
+        public Employee()
+        {
+            Occupation = "";
+            Address = "";
+            Forename = "";
+            Surname = "";
+            WorkPhoneNumber = new PhoneNumber(0, 0);
+            DrivingLicenseCategories = new List<string>() { };
+        }
+            
         public Employee(int employeeId,
                         string occupation,
                         string address,
