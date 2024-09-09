@@ -28,9 +28,9 @@ namespace CompanyFleetManagerWebMvc.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string text)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = text});
         }
 
         [ActionName("Utils")]
@@ -41,7 +41,12 @@ namespace CompanyFleetManagerWebMvc.Controllers
 
         public IActionResult Seed()
         {
-            Utils.SeedData(_dbContext);
+            var result = Utils.SeedData(_dbContext);
+
+            if (!result.Item1)
+            {
+                return RedirectToAction("Error", "Home", new { text = result.Item2 });
+            }
 
             return RedirectToAction("Index");
         }
