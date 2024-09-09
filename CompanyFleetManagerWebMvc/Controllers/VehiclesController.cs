@@ -93,5 +93,15 @@ namespace CompanyFleetManagerWebApp.Controllers
             }
             return View();
         }
+
+        public IActionResult Details(int id)
+        {
+            var vehicle = DbContext.Vehicles.Find(id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            return View(vehicle);
+        }
     }
 }
