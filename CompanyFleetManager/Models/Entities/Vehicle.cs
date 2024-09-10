@@ -19,6 +19,9 @@ namespace CompanyFleetManager.Models.Entities
         public DateOnly VehicleInspectionValidity { get; set; }
         public bool IsDamaged { get; set; }
 
+        //navigation property
+        public ICollection<Rental> Rentals { get; set; }
+
         public Vehicle()
         {
             Model = "";

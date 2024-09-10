@@ -14,16 +14,24 @@ namespace CompanyFleetManager.Models.Entities
         [Key]
         public int RentalId { get; set; }
 
-        [ForeignKey("VehicleId")]
+        //foreign key
         public int RentedVehicleId { get; set; }
 
-        [ForeignKey("EmployeeId")]
+        //foreign key
         public int RentingEmployeeId { get; set; }
 
         public DateOnly RentalDate { get; set; }
 
         public DateTime PlannedReturningDate { get; set; }
         public DateTime? FactualReturningDate { get; set; }
+
+        //navigation property
+        [ForeignKey("RentingVehicleId")]
+        public Vehicle RentedVehicle { get; set; }
+
+        //navigation property
+        [ForeignKey("RentingEmployeeId")]
+        public Employee RentingEmployee { get; set; }
 
         public Rental()
         {

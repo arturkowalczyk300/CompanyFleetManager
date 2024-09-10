@@ -22,6 +22,10 @@ namespace CompanyFleetManager.Models.Entities
         public DateOnly DrivingLicenseValidity { get; set; }
         public DateOnly HiredUntil { get; set; }
 
+        //navigation property
+        public ICollection<Rental> Rentals { get; set; }
+
+
         public Employee()
         {
             Occupation = "";

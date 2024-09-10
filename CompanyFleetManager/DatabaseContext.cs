@@ -51,6 +51,17 @@ namespace CompanyFleetManager
                 .HasConversion(
                 v => v.ToString(),
                 v => PhoneNumber.ParseString(v));
+
+            //configure relations
+            modelBuilder.Entity<Rental>()
+                .HasOne(r => r.RentingEmployee)
+                .WithMany(e => e.Rentals)
+                .HasForeignKey(r => r.RentingEmployeeId);
+
+            modelBuilder.Entity<Rental>()
+                .HasOne(r => r.RentedVehicle)
+                .WithMany(v => v.Rentals)
+                .HasForeignKey(r => r.RentedVehicleId);
         }
     }
 }
