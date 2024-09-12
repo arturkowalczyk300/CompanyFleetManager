@@ -36,7 +36,7 @@ namespace CompanyFleetManagerWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return RedirectToAction("Error", "Home", new { text = "Model state is invalid" });
         }
 
         [HttpGet]
@@ -91,7 +91,8 @@ namespace CompanyFleetManagerWebApp.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View();
+
+            return RedirectToAction("Error", "Home", new { text = "Model state is invalid" });
         }
 
         public IActionResult Details(int id)
