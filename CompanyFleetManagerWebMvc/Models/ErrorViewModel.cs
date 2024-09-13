@@ -2,8 +2,8 @@ namespace CompanyFleetManagerWebMvc.Models
 {
     public class ErrorViewModel
     {
-        public string? RequestId { get; set; }
+        public string? DetailedMessage { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowDetailedMessage => !string.IsNullOrEmpty(DetailedMessage);
     }
 }

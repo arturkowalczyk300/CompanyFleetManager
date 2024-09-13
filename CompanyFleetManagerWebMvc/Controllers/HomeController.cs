@@ -30,7 +30,7 @@ namespace CompanyFleetManagerWebMvc.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(string text)
         {
-            return View(new ErrorViewModel { RequestId = text});
+            return View(new ErrorViewModel { DetailedMessage = text});
         }
 
         [ActionName("Utils")]
@@ -45,7 +45,7 @@ namespace CompanyFleetManagerWebMvc.Controllers
 
             if (!result.Item1)
             {
-                return RedirectToAction("Error", "Home", new { text = result.Item2 });
+                return View("Error", new ErrorViewModel() { DetailedMessage = "Seeding data failed!" });
             }
 
             return RedirectToAction("Index");

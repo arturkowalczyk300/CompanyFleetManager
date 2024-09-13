@@ -1,6 +1,8 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CompanyFleetManagerWebApp.Controllers
 {
@@ -36,7 +38,7 @@ namespace CompanyFleetManagerWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Error", "Home", new { text = "Model state is invalid" });
+            return View("Error", new ErrorViewModel() { DetailedMessage = "Model state is not valid!" });
         }
 
         [HttpGet]
@@ -92,7 +94,7 @@ namespace CompanyFleetManagerWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Error", "Home", new { text = "Model state is invalid" });
+            return View("Error", new ErrorViewModel() { DetailedMessage = "Model state is not valid!"});
         }
 
         public IActionResult Details(int id)
