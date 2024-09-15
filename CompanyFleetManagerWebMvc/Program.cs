@@ -1,4 +1,6 @@
 using CompanyFleetManager;
+using CompanyFleetManagerWebApp;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyFleetManagerWebMvc
@@ -30,6 +32,8 @@ namespace CompanyFleetManagerWebMvc
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseStatusCodePagesWithRedirects("/Errors/{0}");
 
             app.UseRouting();
 

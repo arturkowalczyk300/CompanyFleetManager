@@ -1,6 +1,7 @@
 using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
 using CompanyFleetManagerWebMvc.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -39,6 +40,7 @@ namespace CompanyFleetManagerWebMvc.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Seed()
         {
             var result = Utils.SeedData(_dbContext);
