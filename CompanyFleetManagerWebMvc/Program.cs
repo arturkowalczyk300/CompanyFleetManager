@@ -44,6 +44,9 @@ namespace CompanyFleetManagerWebMvc
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //Add Razor pages service
+            builder.Services.AddRazorPages();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -63,6 +66,8 @@ namespace CompanyFleetManagerWebMvc
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
