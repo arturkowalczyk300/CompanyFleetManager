@@ -59,7 +59,7 @@ namespace CompanyFleetManagerWebApp
 
             if (adminUser == null)
             {
-                adminUser = new IdentityUser { Email= adminEmail };
+                adminUser = new IdentityUser {UserName = adminEmail, Email= adminEmail };
                 var result = await userManager.CreateAsync(adminUser, adminPassword);
 
                 if (result.Succeeded)
