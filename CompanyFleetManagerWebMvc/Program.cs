@@ -17,6 +17,25 @@ namespace CompanyFleetManagerWebMvc
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            //add identity service
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
+
+                //prevent brute force attacks
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.AllowedForNewUsers = false;
+            })
+                .AddUserStore<CustomUserStore>()
+                .AddRoleStore<CustomRoleStore>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -37,6 +56,7 @@ namespace CompanyFleetManagerWebMvc
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
