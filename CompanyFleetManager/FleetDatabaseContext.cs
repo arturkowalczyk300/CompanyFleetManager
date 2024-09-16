@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CompanyFleetManager
 {
-    public class DatabaseContext : DbContext
+    public class FleetDatabaseContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -19,11 +19,11 @@ namespace CompanyFleetManager
         public static string ConnectionString { get; set; } = $"Data Source={DatabaseFilename}";
 
 
-        public DatabaseContext()
+        public FleetDatabaseContext()
         {
         }
 
-        public DatabaseContext(DbContextOptions options) : base(options)
+        public FleetDatabaseContext(DbContextOptions<FleetDatabaseContext> options) : base(options)
         {
 
         }

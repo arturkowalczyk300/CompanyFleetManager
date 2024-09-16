@@ -7,18 +7,18 @@ namespace CompanyFleetManagerTests
 {
     public class DatabaseTests
     {
-        private DbContextOptions<DatabaseContext> contextOptions;
+        private DbContextOptions<FleetDatabaseContext> contextOptions;
 
         public DatabaseTests()
         {
-            contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            contextOptions = new DbContextOptionsBuilder<FleetDatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "FleetInMemoryDatabase")
                 .Options;
         }
 
-        private DatabaseContext CreateContext()
+        private FleetDatabaseContext CreateContext()
         {
-            var context = new DatabaseContext(contextOptions);
+            var context = new FleetDatabaseContext(contextOptions);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             return context;
@@ -40,7 +40,7 @@ namespace CompanyFleetManagerTests
                     isDamaged: false
                     );
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddVehicle(vehicle);
 
@@ -72,7 +72,7 @@ namespace CompanyFleetManagerTests
                     hiredUntil: new DateOnly(2025, 1, 1)
                     );
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddEmployee(employee);
 
@@ -95,7 +95,7 @@ namespace CompanyFleetManagerTests
                     plannedReturningDate: new DateTime(2024, 10, 01),
                     factualReturningDate: null);
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddRental(rental);
 
@@ -135,7 +135,7 @@ namespace CompanyFleetManagerTests
                         );
 
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddVehicle(vehicle1);
                 databaseAccess.AddVehicle(vehicle2);
@@ -183,7 +183,7 @@ namespace CompanyFleetManagerTests
                     hiredUntil: new DateOnly(2026, 3, 2)
                     );
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddEmployee(employee1);
                 databaseAccess.AddEmployee(employee2);
@@ -215,7 +215,7 @@ namespace CompanyFleetManagerTests
                     plannedReturningDate: new DateTime(2024, 9, 2),
                     factualReturningDate: null);
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddRental(rental1);
                 databaseAccess.AddRental(rental2);
@@ -256,7 +256,7 @@ namespace CompanyFleetManagerTests
                         );
 
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddVehicle(vehicle1);
                 databaseAccess.AddVehicle(vehicle2);
@@ -303,7 +303,7 @@ namespace CompanyFleetManagerTests
                     hiredUntil: new DateOnly(2026, 3, 2)
                     );
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddEmployee(employee1);
                 databaseAccess.AddEmployee(employee2);
@@ -335,7 +335,7 @@ namespace CompanyFleetManagerTests
                     plannedReturningDate: new DateTime(2024, 9, 2),
                     factualReturningDate: null);
 
-                var databaseAccess = new DatabaseAccess(context);
+                var databaseAccess = new FleetDatabaseAccess(context);
 
                 databaseAccess.AddRental(rental1);
                 databaseAccess.AddRental(rental2);

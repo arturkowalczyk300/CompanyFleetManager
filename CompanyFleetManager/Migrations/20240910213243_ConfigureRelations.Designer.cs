@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyFleetManager.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(FleetDatabaseContext))]
     [Migration("20240910213243_ConfigureRelations")]
     partial class ConfigureRelations
     {

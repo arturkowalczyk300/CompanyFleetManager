@@ -6,3 +6,4 @@ CompanyFleetManagerTests/[Bb]in/
 CompanyFleetManagerTests/[Oo]bj/
 CompanyFleetManagerWebMvc/[Bb]in/
 CompanyFleetManagerWebMvc/[Oo]bj/
+*.db

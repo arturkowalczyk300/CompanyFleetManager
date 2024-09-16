@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CompanyFleetManager
 {
-    public class DatabaseAccess
+    public class FleetDatabaseAccess
     {
-        private DatabaseContext DbContext;
+        private FleetDatabaseContext DbContext;
 
-        public DatabaseAccess(DatabaseContext dbContext)
+        public FleetDatabaseAccess(FleetDatabaseContext dbContext)
         {
             DbContext = dbContext;
         }

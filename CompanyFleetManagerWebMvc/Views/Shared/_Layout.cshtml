@@ -38,6 +38,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                         </li>
                     </ul>
+
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class=" nav-item">
+                                <span class="navbar-text text-primary">
+                                    Logged in as: @User.Identity.Name
+                                </span>
+                            </li>
+                            <li class=" nav-item">
+                                <a class="btn btn-primary" href="Identity/Account/Logout">Log out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class=" nav-item">
+                                <a class="btn btn-primary" href="Identity/Account/Login">Log in</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

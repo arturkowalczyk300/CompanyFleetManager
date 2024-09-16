@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyFleetManager.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(FleetDatabaseContext))]
     [Migration("20240902160558_InitialMigration")]
     partial class InitialMigration
     {
