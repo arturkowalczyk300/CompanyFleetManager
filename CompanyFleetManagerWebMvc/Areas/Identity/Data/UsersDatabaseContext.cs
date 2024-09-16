@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyFleetManager;
 
-public class UsersDatabaseContext : IdentityDbContext<IdentityUser>
+public class UsersDatabaseIdentityContext : IdentityDbContext<IdentityUser>
 {
-    public UsersDatabaseContext(DbContextOptions<UsersDatabaseContext> options)
+    public UsersDatabaseIdentityContext(DbContextOptions<UsersDatabaseContext> options)
         : base(options)
     {
     }
