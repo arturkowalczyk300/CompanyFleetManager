@@ -2,6 +2,7 @@ using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace CompanyFleetManagerWebMvc
 {
@@ -48,6 +49,17 @@ namespace CompanyFleetManagerWebMvc
             builder.Services.AddRazorPages();
 
             var app = builder.Build();
+
+            //add admin account if not already created
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                Utils.CreateRoles(
+                    services.GetRequiredService<UserManager<IdentityUser>>(),
+                    services.GetRequiredService<RoleManager<IdentityRole>>()
+                    ).Wait();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

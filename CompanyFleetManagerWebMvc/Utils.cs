@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace CompanyFleetManagerWebApp
 {
@@ -38,5 +39,34 @@ namespace CompanyFleetManagerWebApp
             }
             return new Tuple<bool, string?>(true, null);
         }
+
+        public static async Task CreateRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            await CreateAdminUserTask(userManager, roleManager);
+        }
+
+        private static async Task CreateAdminUserTask(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            Console.WriteLine("Creating admin account!");
+
+            var adminEmail = "admin@fleet.com";
+            var adminPassword = "PwD1Adm#";
+
+            if (!await roleManager.RoleExistsAsync("Admin"))
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
+            {
+                adminUser = new IdentityUser { Email= adminEmail };
+                var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+                if (result.Succeeded)
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+
+       
     }
 }

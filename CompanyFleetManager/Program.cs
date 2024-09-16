@@ -10,7 +10,7 @@
 
             var actions = new Dictionary<string, MenuCallback>()
             {
-                { "1", () => { Console.WriteLine("Create admin account!");} }
+                { "1", () => { Console.WriteLine("First option launched!");} }
             };
 
             var menu = new Menu(actions);
