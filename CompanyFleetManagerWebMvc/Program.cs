@@ -17,8 +17,6 @@ namespace CompanyFleetManagerWebMvc
                 options.UseSqlite(builder.Configuration.GetConnectionString("FleetConnection"));
             });
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UsersDatabaseContext>();
-
             //Register DBContext (users identities database)
             builder.Services.AddDbContext<UsersDatabaseContext>(options =>
             {
