@@ -23,7 +23,7 @@ namespace CompanyFleetManager
         {
         }
 
-        public FleetDatabaseContext(DbContextOptions options) : base(options)
+        public FleetDatabaseContext(DbContextOptions<FleetDatabaseContext> options) : base(options)
         {
 
         }

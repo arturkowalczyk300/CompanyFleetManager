@@ -17,6 +17,12 @@ namespace CompanyFleetManagerWebMvc
                 options.UseSqlite(builder.Configuration.GetConnectionString("FleetConnection"));
             });
 
+            //Register DBContext (users identities database)
+            builder.Services.AddDbContext<UsersDatabaseContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("UsersConnection"));
+            });
+
             //add identity service
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -29,8 +35,7 @@ namespace CompanyFleetManagerWebMvc
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
                 options.Lockout.AllowedForNewUsers = false;
             })
-                .AddUserStore<CustomUserStore>()
-                .AddRoleStore<CustomRoleStore>()
+                .AddEntityFrameworkStores<UsersDatabaseContext>()
                 .AddDefaultTokenProviders();
 
             builder.Services.AddAuthentication();
