@@ -5,7 +5,7 @@ namespace CompanyFleetManagerWebApp
 {
     public class Utils
     {
-        public static Tuple<bool, string?> SeedData(DatabaseContext dbContext)
+        public static Tuple<bool, string?> SeedData(FleetDatabaseContext dbContext)
         {
             try
             {

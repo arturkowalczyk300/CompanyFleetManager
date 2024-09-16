@@ -11,10 +11,10 @@ namespace CompanyFleetManagerWebMvc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Register DBContext 
-            builder.Services.AddDbContext<DatabaseContext>(options =>
+            //Register DBContext (fleet database)
+            builder.Services.AddDbContext<FleetDatabaseContext>(options =>
             {
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlite(builder.Configuration.GetConnectionString("FleetConnection"));
             });
 
             //add identity service
