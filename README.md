@@ -16,3 +16,12 @@ It includes a web access page that enables authorized employees to operate the s
 - [ ] Implement a feature to send reminders (e.g. e-mails to employees about upcoming return times for rented vehicles)
 - [ ] Create a contact form with system administrator
 - [ ] E2E automatic tests
+
+#### Screenshots
+![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
+
+![Screenshot 2 - Login](/res/login.png?raw=true "Login")  
+
+![Screenshot 3 - Vehicles](/res/vehicles.png?raw=true "Vehicles")  
+
+![Screenshot 4 - Employees](/res/employees.png?raw=true "Employees")
