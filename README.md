@@ -15,7 +15,8 @@ It includes a web access page that enables authorized employees to operate the s
 #### Planned changes (TODO):
 - [ ] Implement a feature to send reminders (e.g. e-mails to employees about upcoming return times for rented vehicles)
 - [ ] Create a contact form with system administrator
-- [ ] E2E automatic tests
+- [ ] Implement a more elegant layout
+- [ ] Create E2E automatic tests
 
 #### Screenshots
 ![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
