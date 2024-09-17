@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Shared\Toast.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CompanyFleetManager\CompanyFleetManager.csproj" />
   </ItemGroup>
 
