@@ -14,13 +14,13 @@ namespace CompanyFleetManager
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Rental> Rentals { get; set; }
-
-        public static string DatabaseFilename { get; set; } = "fleet.db";
-        public static string ConnectionString { get; set; } = $"Data Source={DatabaseFilename}";
-
+        public static string ServerAddress { get; set; } = $"DESKTOP-1B6DSC3\\SQLEXPRESS";
+        public static string DatabaseName { get; set; } = "Fleet";
+        public static string ConnectionString { get; set; } = $"Server={ServerAddress};Database={DatabaseName};Trusted_Connection=True;Encrypt=False";
 
         public FleetDatabaseContext()
         {
+            
         }
 
         public FleetDatabaseContext(DbContextOptions<FleetDatabaseContext> options) : base(options)
@@ -32,7 +32,7 @@ namespace CompanyFleetManager
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(ConnectionString);
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
 

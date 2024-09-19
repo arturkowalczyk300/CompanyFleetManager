@@ -15,13 +15,13 @@ namespace CompanyFleetManagerWebMvc
             //Register DBContext (fleet database)
             builder.Services.AddDbContext<FleetDatabaseContext>(options =>
             {
-                options.UseSqlite(builder.Configuration.GetConnectionString("FleetConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("FleetConnection"));
             });
 
             //Register DBContext (users identities database)
             builder.Services.AddDbContext<UsersDatabaseContext>(options =>
             {
-                options.UseSqlite(builder.Configuration.GetConnectionString("UsersConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnection"));
             });
 
             //add identity service

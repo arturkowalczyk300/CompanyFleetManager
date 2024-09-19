@@ -11,8 +11,9 @@ namespace CompanyFleetManager
 {
     public class UsersDatabaseContext : IdentityDbContext<IdentityUser>
     {
-        public static string DatabaseFilename { get; set; } = "users.db";
-        public static string ConnectionString { get; set; } = $"Data Source={DatabaseFilename}";
+        public static string ServerAddress { get; set; } = $"DESKTOP-1B6DSC3\\SQLEXPRESS";
+        public static string DatabaseName { get; set; } = "Users";
+        public static string ConnectionString { get; set; } = $"Server={ServerAddress};Database={DatabaseName};Trusted_Connection=True;Encrypt=False";
 
         public UsersDatabaseContext() { }
 
@@ -22,7 +23,7 @@ namespace CompanyFleetManager
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(ConnectionString);
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
     }
