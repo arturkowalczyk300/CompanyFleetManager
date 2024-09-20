@@ -9,7 +9,7 @@ It includes a web access page that enables authorized employees to operate the s
 ### Technologies used:
 - .NET Core
 - ASP.NET Core MVC with Identity component
-- Entity Framework + SQLite database
+- Entity Framework + Microsoft SQL Server database
 - Unit tests with xUnit
 
 #### Planned changes (TODO):
@@ -17,6 +17,7 @@ It includes a web access page that enables authorized employees to operate the s
 - [ ] Create a contact form with system administrator
 - [ ] Implement a more elegant layout
 - [ ] Create E2E automatic tests
+- [ ] Implement automatic deployment of MSSQL Server Database using Docker
 
 #### Screenshots
 ![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
