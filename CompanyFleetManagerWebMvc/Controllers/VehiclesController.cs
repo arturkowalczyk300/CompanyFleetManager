@@ -2,6 +2,7 @@
 using CompanyFleetManager.Models.Entities;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CompanyFleetManagerWebApp.Controllers
 {
@@ -37,7 +38,7 @@ namespace CompanyFleetManagerWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Error", new ErrorViewModel() { DetailedMessage = "Model state is not valid!" });
+            return View("Error", new ErrorViewModel() { DetailedMessage = $"Model state is not valid! Following entries are invalid: {Utils.GetNamesOfNonValidEntries(ModelState)}" });
         }
 
         [HttpGet]
@@ -93,7 +94,7 @@ namespace CompanyFleetManagerWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Error", new ErrorViewModel() { DetailedMessage = "Model state is not valid!" });
+            return View("Error", new ErrorViewModel() { DetailedMessage = $"Model state is not valid! Following entries are invalid: {Utils.GetNamesOfNonValidEntries(ModelState)}" });
         }
 
         public IActionResult Details(int id)

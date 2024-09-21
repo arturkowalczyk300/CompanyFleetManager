@@ -1,6 +1,7 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CompanyFleetManagerWebApp
 {
@@ -72,6 +73,11 @@ namespace CompanyFleetManagerWebApp
             }
         }
 
-
+        public static string GetNamesOfNonValidEntries(ModelStateDictionary modelState)
+        {
+            var nonValid = modelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid);
+            var nonValidNamesStr = String.Join(',', nonValid.Select(x => x.Key));
+            return nonValidNamesStr;
+        }
     }
 }
