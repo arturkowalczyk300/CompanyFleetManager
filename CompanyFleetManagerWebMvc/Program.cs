@@ -13,15 +13,23 @@ namespace CompanyFleetManagerWebMvc
             var builder = WebApplication.CreateBuilder(args);
 
             //Register DBContext (fleet database)
+            var fleetConnectionString = builder.Configuration.GetConnectionString("FleetConnection");
+            if (fleetConnectionString == null || fleetConnectionString.Equals(""))
+                fleetConnectionString = Environment.GetEnvironmentVariable("fleet_connection_string");
+            Console.WriteLine($"FLEET CNT STR: {fleetConnectionString}");
             builder.Services.AddDbContext<FleetDatabaseContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("FleetConnection"));
+                options.UseSqlServer(fleetConnectionString);
             });
 
             //Register DBContext (users identities database)
+            var usersConnectionString = builder.Configuration.GetConnectionString("UsersConnection");
+            if (usersConnectionString == null || usersConnectionString.Equals(""))
+                usersConnectionString = Environment.GetEnvironmentVariable("users_connection_string");
+            Console.WriteLine($"USERS CNT STR: {fleetConnectionString}");
             builder.Services.AddDbContext<UsersDatabaseContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnection"));
+                options.UseSqlServer(usersConnectionString);
             });
 
             //add identity service

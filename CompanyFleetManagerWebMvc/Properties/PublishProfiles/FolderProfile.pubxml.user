@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\artur\source\repos\CompanyFleetManager\CompanyFleetManagerWebMvc\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-09-23T11:47:46.6655028Z||;True|2024-09-23T13:36:45.4246796+02:00||;True|2024-09-23T13:35:50.7378245+02:00||;True|2024-09-23T13:34:03.2379654+02:00||;True|2024-09-23T13:28:08.2602087+02:00||;</History>
+    <LastFailureDetails />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+</Project>

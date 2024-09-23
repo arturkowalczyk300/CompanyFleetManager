@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: mssqlserver
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=PwD1ADM#
+        ports:
+            - "1433:1433"
+        volumes:
+            - mssql-data:/var/opt/mssql
+        networks:
+            - app-network
+
+    aspnetcore:
+        image: mcr.microsoft.com/dotnet/sdk:8.0
+        container_name: aspnetcoreapp
+        ports:
+            - "5000:8080"
+        volumes:
+            - ./:/app
+            - ./CompanyFleetManagerWebMvc/wwwroot:/app/wwwroot
+        working_dir: /app
+        environment:
+            - fleet_connection_string=Server=mssqlserver,1433;Database=Fleet;User Id=sa;Password=PwD1ADM#;TrustServerCertificate=True
+            - users_connection_string=Server=mssqlserver,1433;Database=Users;User Id=sa;Password=PwD1ADM#;TrustServerCertificate=True
+        entrypoint: >
+            sh -c "dotnet tool install --global dotnet-ef &&
+            export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.dotnet/tools &&
+            echo \"Path set\" &&
+            dotnet-ef database update -v --no-build --project ./CompanyFleetManager/ --context FleetDatabaseContext &&
+            echo \"Fleet migrations applied\" &&
+            dotnet-ef database update -v --no-build --project ./CompanyFleetManager/ --context UsersDatabaseContext &&
+            echo \"Users migrations applied\" &&
+            exec dotnet ./CompanyFleetManagerWebMvc/bin/Release/net8.0/CompanyFleetManagerWebApp.dll"
+        depends_on:
+            - mssql
+        networks:
+            - app-network
+            
+volumes:
+    mssql-data:
+    
+networks:
+    app-network:

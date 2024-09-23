@@ -7,6 +7,7 @@ CompanyFleetManagerTests/[Oo]bj/
 CompanyFleetManagerWebMvc/[Bb]in/
 CompanyFleetManagerWebMvc/[Oo]bj/
 CompanyFleetManagerWebMvc/appsettings.json
+CompanyFleetManagerWebMvc/appsettings.Development.json
 *.db
 *.db-shm
 *.db-wal

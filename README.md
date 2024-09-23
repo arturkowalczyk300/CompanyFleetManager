@@ -11,13 +11,14 @@ It includes a web access page that enables authorized employees to operate the s
 - ASP.NET Core MVC with Identity component
 - Entity Framework + Microsoft SQL Server database
 - Unit tests with xUnit
+- Docker compose file to make deployment easier
 
 #### Planned changes (TODO):
 - [ ] Implement a feature to send reminders (e.g. e-mails to employees about upcoming return times for rented vehicles)
 - [ ] Create a contact form with system administrator
 - [ ] Implement a more elegant layout
 - [ ] Create E2E automatic tests
-- [ ] Implement automatic deployment of MSSQL Server Database using Docker
+- [x] Implement automatic deployment of MSSQL Server Database using Docker
 
 #### Screenshots
 ![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
