@@ -20,7 +20,7 @@ namespace CompanyFleetManager.Models.Entities
         public bool IsDamaged { get; set; }
 
         //navigation property
-        public ICollection<Rental> Rentals { get; set; }
+        public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
 
         public Vehicle()
         {

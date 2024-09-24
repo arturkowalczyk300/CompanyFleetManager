@@ -16,7 +16,7 @@ namespace CompanyFleetManagerWebMvc
             var fleetConnectionString = builder.Configuration.GetConnectionString("FleetConnection");
             if (fleetConnectionString == null || fleetConnectionString.Equals(""))
                 fleetConnectionString = Environment.GetEnvironmentVariable("fleet_connection_string");
-            Console.WriteLine($"FLEET CNT STR: {fleetConnectionString}");
+
             builder.Services.AddDbContext<FleetDatabaseContext>(options =>
             {
                 options.UseSqlServer(fleetConnectionString);
@@ -26,7 +26,7 @@ namespace CompanyFleetManagerWebMvc
             var usersConnectionString = builder.Configuration.GetConnectionString("UsersConnection");
             if (usersConnectionString == null || usersConnectionString.Equals(""))
                 usersConnectionString = Environment.GetEnvironmentVariable("users_connection_string");
-            Console.WriteLine($"USERS CNT STR: {fleetConnectionString}");
+
             builder.Services.AddDbContext<UsersDatabaseContext>(options =>
             {
                 options.UseSqlServer(usersConnectionString);

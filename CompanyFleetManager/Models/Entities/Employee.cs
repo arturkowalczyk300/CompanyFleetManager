@@ -23,7 +23,7 @@ namespace CompanyFleetManager.Models.Entities
         public DateOnly HiredUntil { get; set; }
 
         //navigation property
-        public ICollection<Rental> Rentals { get; set; }
+        public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
 
 
         public Employee()
