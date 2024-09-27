@@ -10,7 +10,7 @@
         if (User.Identity?.IsAuthenticated ?? false)
         {
             <form class="form-inline" id="formLogout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button id="buttonLogout" onClick="showToastThenSubmit('You have logged out!', 'formLogout')" type="button" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+                <button id="buttonLogout" onClick="showToastThenSubmit('You have logged out!', 'formLogout', 'success')" type="button" class="nav-link btn btn-link text-dark">Click here to Logout</button>
             </form>
         }
         else
