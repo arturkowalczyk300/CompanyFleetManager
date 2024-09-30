@@ -47,7 +47,7 @@ namespace CompanyFleetManagerWebMvc.Controllers
 
             if (!result.Item1)
             {
-                return View("Error", new ErrorViewModel() { DetailedMessage = "Seeding data failed!" });
+                return View("Error", new ErrorViewModel() { DetailedMessage = $"Seeding data failed! Reason: {result.Item2}" });
             }
 
             return RedirectToAction("Index");
