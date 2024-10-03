@@ -23,15 +23,32 @@ namespace CompanyFleetManager
             DbContext.SaveChanges();
         }
 
+        public void AddVehicles(params Vehicle[] vehicles)
+        {
+            DbContext.Vehicles.AddRange(vehicles);
+            DbContext.SaveChanges();
+        }
+
         public void AddEmployee(Employee employee)
         {
             DbContext.Employees.Add(employee);
+            DbContext.SaveChanges();
+        }
+        public void AddEmployees(params Employee[] employees)
+        {
+            DbContext.Employees.AddRange(employees);
             DbContext.SaveChanges();
         }
 
         public void AddRental(Rental rental)
         {
             DbContext.Rentals.Add(rental);
+            DbContext.SaveChanges();
+        }
+
+        public void AddRentals(params Rental[] rentals)
+        {
+            DbContext.Rentals.AddRange(rentals);
             DbContext.SaveChanges();
         }
 
