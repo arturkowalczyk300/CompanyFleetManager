@@ -43,11 +43,11 @@ namespace CompanyFleetManagerWebMvc.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Seed()
         {
-            var result = Utils.SeedData(_dbContext);
+            var error = Utils.SeedData(_dbContext);
 
-            if (!result.Item1)
+            if (error is not null)
             {
-                return View("Error", new ErrorViewModel() { DetailedMessage = $"Seeding data failed! Reason: {result.Item2}" });
+                return View("Error", new ErrorViewModel() { DetailedMessage = $"Seeding data failed! Reason: {error.Message}" });
             }
 
             return RedirectToAction("Index");

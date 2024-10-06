@@ -9,13 +9,13 @@ namespace CompanyFleetManagerWebApp
 {
     public class Utils
     {
-        public static Tuple<bool, string?> SeedData(FleetDatabaseContext dbContext) //returns tuple <isSuccessful, optional error>
+        public static SeedingError? SeedData(FleetDatabaseContext dbContext) //returns tuple <isSuccessful, optional error>
         {
             var dbAccess = new FleetDatabaseAccess(dbContext);
 
             //check if database is empty
             if (dbAccess.GetEmployees().Count() > 0 || dbAccess.GetVehicles().Count() > 0 || dbAccess.GetRentals().Count() > 0)
-                return new Tuple<bool, string?>(false, "Database is not empty!");
+                return new SeedingError("Database is not empty!");
 
             using (var transaction = dbContext.Database.BeginTransaction())
             {
@@ -53,10 +53,10 @@ namespace CompanyFleetManagerWebApp
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    return new Tuple<bool, string?>(false, ex.ToString());
+                    return new SeedingError(ex.ToString());
                 }
             }
-            return new Tuple<bool, string?>(true, null);
+            return null; //success
         }
 
         public static async Task CreateRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
