@@ -20,7 +20,11 @@ It includes a web access page that enables authorized employees to operate the s
 - [ ] Create E2E automatic tests
 - [x] Implement automatic deployment of MSSQL Server Database using Docker
 
-#### Screenshots
+#### Screenshots  
+
+##### All names, addresses, and data used in this project are fictional and for demonstration purposes only. Any resemblance to real persons or properties is purely coincidental and unintended.
+
+
 ![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
 
 ![Screenshot 2 - Login](/res/login.png?raw=true "Login")  

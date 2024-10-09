@@ -26,7 +26,7 @@ namespace CompanyFleetManager.Models.Entities
         public DateTime? FactualReturningDate { get; set; }
 
         //navigation property
-        [ForeignKey("RentingVehicleId")]
+        [ForeignKey("RentedVehicleId")]
         public Vehicle RentedVehicle { get; set; }
 
         //navigation property

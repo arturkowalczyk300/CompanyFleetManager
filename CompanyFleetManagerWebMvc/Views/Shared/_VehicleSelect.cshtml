@@ -1,0 +1,13 @@
+﻿@using CompanyFleetManager.Models.Entities
+@model Rental
+
+<div>
+    <label>Vehicle</label>
+    <br />
+    <select id="selectVehicle" asp-for="RentedVehicleId" class="form-control">
+        @foreach(var vehicle in ViewBag.Vehicles as List<Vehicle>)
+        {
+            <option asp-for="RentedVehicleId" value="@vehicle.VehicleId">@vehicle.Brand @vehicle.Model, @vehicle.LicencePlateNumber</option>
+        }
+    </select>
+</div>
