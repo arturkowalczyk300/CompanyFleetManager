@@ -2,6 +2,7 @@
 using CompanyFleetManager.Models.Entities;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CompanyFleetManagerWebApp.Controllers
 {
@@ -23,12 +24,25 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Employees = DbContext.Employees.ToList();
+            ViewBag.Vehicles = DbContext.Vehicles.ToList();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Rental rental)
         {
+            rental.RentedVehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == rental.RentedVehicleId);
+            rental.RentingEmployee = DbContext.Employees.FirstOrDefault(e => e.EmployeeId == rental.RentingEmployeeId);
+
+            ModelState.Remove("RentedVehicle");
+            ModelState.Remove("RentingEmployee");
+
+            if (rental.RentedVehicle == null || rental.RentingEmployee == null)
+            {
+                return View("Error", new ErrorViewModel() {DetailedMessage = "Invalid Vehicle or Employee selection!" });
+            }
+
             if (ModelState.IsValid)
             {
                 DbContext.Rentals.Add(rental);
@@ -74,7 +88,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var rental = DbContext.Rentals.FirstOrDefault(r => r.RentalId== id);
+            var rental = DbContext.Rentals.FirstOrDefault(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();

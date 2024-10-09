@@ -1,0 +1,13 @@
+﻿@using CompanyFleetManager.Models.Entities
+@model Rental
+
+<div>
+    <label>Employee</label> 
+    <br />
+    <select id="selectEmployee" asp-for="RentingEmployeeId" class="form-control">
+        @foreach(var employee in ViewBag.Employees as List<Employee>)
+        {
+            <option value="@employee.EmployeeId">@employee.Forename @employee.Middlename @employee.Surname</option>
+        }
+    </select>
+</div>
