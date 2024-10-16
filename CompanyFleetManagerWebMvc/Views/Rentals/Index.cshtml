@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CompanyFleetManager.Models.Entities.Rental>
+﻿@model IEnumerable<CompanyFleetManagerWebApp.ViewModels.RentalViewModel>
 
 @{
     ViewData["Title"] = "Rentals";
@@ -14,19 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RentedVehicleId)
+                Rented vehicle
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentingEmployeeId)
+                Renting employee
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentalDate)
+                @Html.DisplayNameFor(model => model.Rental.RentalDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PlannedReturningDate)
+                @Html.DisplayNameFor(model => model.Rental.PlannedReturningDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FactualReturningDate)
+                @Html.DisplayNameFor(model => model.Rental.FactualReturningDate)
             </th>
             <th></th>
         </tr>
@@ -35,24 +35,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RentedVehicleId)
+                    @item.Vehicle.ToString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RentingEmployeeId)
+                    @item.Employee.ToString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RentalDate)
+                    @Html.DisplayFor(modelItem => item.Rental.RentalDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlannedReturningDate)
+                @Html.DisplayFor(modelItem => item.Rental.PlannedReturningDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FactualReturningDate)
+                    @Html.DisplayFor(modelItem => item.Rental.FactualReturningDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RentalId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RentalId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RentalId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Rental.RentalId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Rental.RentalId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Rental.RentalId">Delete</a>
             </td>
         </tr>
 }

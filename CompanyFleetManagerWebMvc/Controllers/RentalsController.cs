@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebApp.ViewModels;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -18,7 +19,19 @@ namespace CompanyFleetManagerWebApp.Controllers
         public IActionResult Index()
         {
             var rentals = DbContext.Rentals.ToList();
-            return View(rentals);
+            var employees = DbContext.Employees.ToList();
+            var vehicles = DbContext.Vehicles.ToList();
+
+            List<RentalViewModel> rentalViewModels = new List<RentalViewModel>();
+            foreach (var rental in rentals)
+            {
+                var employee = employees.Find(x=> x.EmployeeId == rental.RentingEmployeeId);
+                var vehicle = vehicles.Find(x=>x.VehicleId == rental.RentedVehicleId);
+
+                rentalViewModels.Add(new RentalViewModel(rental, new ShortenedEmployeeData(employee), new ShortenedVehicleData(vehicle)));
+            }
+
+            return View(rentalViewModels);
         }
 
         [HttpGet]

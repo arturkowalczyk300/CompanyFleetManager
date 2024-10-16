@@ -27,8 +27,11 @@ It includes a web access page that enables authorized employees to operate the s
 
 ![Screenshot 1 - Home](/res/home.png?raw=true "Home")  
 
-![Screenshot 2 - Login](/res/login.png?raw=true "Login")  
+![Screenshot 2 - Rentals](/res/rentals.png?raw=true "Rentals")
 
-![Screenshot 3 - Vehicles](/res/vehicles.png?raw=true "Vehicles")  
+![Screenshot 3 - Login](/res/login.png?raw=true "Login")  
 
-![Screenshot 4 - Employees](/res/employees.png?raw=true "Employees")
+![Screenshot 4 - Vehicles](/res/vehicles.png?raw=true "Vehicles")  
+
+![Screenshot 5 - Employees](/res/employees.png?raw=true "Employees")
+
