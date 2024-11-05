@@ -4,6 +4,8 @@ CompanyFleetManager/fleet.db
 .vs/
 CompanyFleetManagerTests/[Bb]in/
 CompanyFleetManagerTests/[Oo]bj/
+CompanyFleetManagerTestsE2E/[Bb]in/
+CompanyFleetManagerTestsE2E/[Oo]bj/
 CompanyFleetManagerWebMvc/[Bb]in/
 CompanyFleetManagerWebMvc/[Oo]bj/
 CompanyFleetManagerWebMvc/appsettings.json

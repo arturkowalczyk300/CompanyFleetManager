@@ -48,6 +48,14 @@ namespace CompanyFleetManagerWebMvc
                 .AddDefaultTokenProviders();
 
             builder.Services.AddAuthentication();
+
+            //automatic logout
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                });
+
             builder.Services.AddAuthorization();
 
             // Add services to the container.
