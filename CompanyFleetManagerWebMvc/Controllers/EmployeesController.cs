@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebApp.Services;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +9,15 @@ namespace CompanyFleetManagerWebApp.Controllers
 {
     public class EmployeesController : Controller
     {
+        WebServiceFleetApi WebService;
 
-        public EmployeesController(FleetDatabaseContext dbContext)
+        public EmployeesController(WebServiceFleetApi webService)
         {
-            DbContext = dbContext;
+            WebService = webService;
         }
         public IActionResult Index()
         {
-            var employees = DbContext.Employees.ToList();
+            var employees = WebService.FetchEmployees();
             return View(employees);
         }
 
@@ -31,8 +33,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Employees.Add(employee);
-                DbContext.SaveChanges();
+                WebService.AddEmployee(employee);
 
                 return RedirectToAction("Index");
             }
@@ -46,7 +47,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var employee = DbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            var employee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
@@ -57,13 +58,12 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var employee = DbContext.Employees.Find(id);
+            var employee = WebService.FetchEmployees().Find(id);
 
             if (employee == null)
                 return NotFound();
 
-            DbContext.Employees.Remove(employee);
-            DbContext.SaveChanges();
+            WebService.RemoveEmployee(employee);
 
             return RedirectToAction("Index");
         }
@@ -74,7 +74,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var employee = DbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            var employee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
@@ -87,8 +87,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Employees.Update(employee);
-                DbContext.SaveChanges();
+                WebService.UpdateEmployee(employee);
 
                 return RedirectToAction("Index");
             }
@@ -98,7 +97,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var employee = DbContext.Employees.Find(id);
+            var employee = WebService.FetchEmployees().Find(id);
 
             if (employee == null)
                 return NotFound();

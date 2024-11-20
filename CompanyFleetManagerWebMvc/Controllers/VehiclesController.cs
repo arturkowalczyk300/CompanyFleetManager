@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebApp.Services;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -8,14 +9,16 @@ namespace CompanyFleetManagerWebApp.Controllers
 {
     public class VehiclesController : Controller
     {
-        public VehiclesController(FleetDatabaseContext dbContext)
+        WebServiceFleetApi WebService;
+
+        public VehiclesController(WebServiceFleetApi webService)
         {
-            DbContext = dbContext;
+            WebService = webService;
         }
 
         public IActionResult Index()
         {
-            var vehicles = DbContext.Vehicles.ToList();
+            var vehicles = WebService.FetchVehicles();
             return View(vehicles);
         }
 
@@ -30,8 +33,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Vehicles.Add(vehicle);
-                DbContext.SaveChanges();
+                WebService.AddVehicle(vehicle);
 
                 return RedirectToAction("Index");
             }
@@ -45,7 +47,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var vehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == id);
+            var vehicle = WebService.FetchVehicles().FirstOrDefault(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -56,13 +58,12 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var vehicle = DbContext.Vehicles.Find(id);
+            var vehicle = WebService.FetchVehicles.Find(id);
 
             if (vehicle == null)
                 return NotFound();
 
-            DbContext.Vehicles.Remove(vehicle);
-            DbContext.SaveChanges();
+            WebService.RemoveVehicle(vehicle);
 
             return RedirectToAction("Index");
         }
@@ -73,7 +74,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var vehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == id);
+            var vehicle = WebService.FetchVehicles().FirstOrDefault(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -86,8 +87,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Vehicles.Update(vehicle);
-                DbContext.SaveChanges();
+                WebService.UpdateVehicle(vehicle);
 
                 return RedirectToAction("Index");
             }
@@ -97,7 +97,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var vehicle = DbContext.Vehicles.Find(id);
+            var vehicle = WebService.FetchVehicles().Find(id);
 
             if (vehicle == null)
                 return NotFound();

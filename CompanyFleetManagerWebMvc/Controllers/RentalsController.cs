@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebApp.Services;
 using CompanyFleetManagerWebApp.ViewModels;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,22 +10,24 @@ namespace CompanyFleetManagerWebApp.Controllers
 {
     public class RentalsController : Controller
     {
-        public RentalsController(FleetDatabaseContext dbContext)
+        WebServiceFleetApi WebService;
+
+        public RentalsController(WebServiceFleetApi webService)
         {
-            DbContext = dbContext;
+            WebService = webService;
         }
 
         public IActionResult Index()
         {
-            var rentals = DbContext.Rentals.ToList();
-            var employees = DbContext.Employees.ToList();
-            var vehicles = DbContext.Vehicles.ToList();
+            var rentals = WebService.FetchRentals();
+            var employees = WebService.FetchEmployees();
+            var vehicles = WebService.FetchVehicles();
 
             List<RentalViewModel> rentalViewModels = new List<RentalViewModel>();
             foreach (var rental in rentals)
             {
-                var employee = employees.Find(x=> x.EmployeeId == rental.RentingEmployeeId);
-                var vehicle = vehicles.Find(x=>x.VehicleId == rental.RentedVehicleId);
+                var employee = employees.Find(x => x.EmployeeId == rental.RentingEmployeeId);
+                var vehicle = vehicles.Find(x => x.VehicleId == rental.RentedVehicleId);
 
                 rentalViewModels.Add(new RentalViewModel(rental, new ShortenedEmployeeData(employee), new ShortenedVehicleData(vehicle)));
             }
@@ -35,29 +38,28 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Employees = DbContext.Employees.ToList();
-            ViewBag.Vehicles = DbContext.Vehicles.ToList();
+            ViewBag.Employees = WebService.FetchEmployees();
+            ViewBag.Vehicles = WebService.FetchVehicles();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Rental rental)
         {
-            rental.RentedVehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == rental.RentedVehicleId);
-            rental.RentingEmployee = DbContext.Employees.FirstOrDefault(e => e.EmployeeId == rental.RentingEmployeeId);
+            rental.RentedVehicle = WebService.FetchVehicles().FirstOrDefault(v => v.VehicleId == rental.RentedVehicleId);
+            rental.RentingEmployee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == rental.RentingEmployeeId);
 
             ModelState.Remove("RentedVehicle");
             ModelState.Remove("RentingEmployee");
 
             if (rental.RentedVehicle == null || rental.RentingEmployee == null)
             {
-                return View("Error", new ErrorViewModel() {DetailedMessage = "Invalid Vehicle or Employee selection!" });
+                return View("Error", new ErrorViewModel() { DetailedMessage = "Invalid Vehicle or Employee selection!" });
             }
 
             if (ModelState.IsValid)
             {
-                DbContext.Rentals.Add(rental);
-                DbContext.SaveChanges();
+                WebService.AddRental(rental);
 
                 return RedirectToAction("Index");
             }
@@ -71,7 +73,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var rental = DbContext.Rentals.FirstOrDefault(r => r.RentalId == id);
+            var rental = WebService.FetchRentals().FirstOrDefault(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
@@ -82,13 +84,12 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var rental = DbContext.Rentals.Find(id);
+            var rental = WebService.FetchRentals().Find(id);
 
             if (rental == null)
                 return NotFound();
 
-            DbContext.Rentals.Remove(rental);
-            DbContext.SaveChanges();
+            WebService.RemoveRental(rental);
 
             return RedirectToAction("Index");
         }
@@ -99,7 +100,7 @@ namespace CompanyFleetManagerWebApp.Controllers
             if (id == null)
                 return NotFound();
 
-            var rental = DbContext.Rentals.FirstOrDefault(r => r.RentalId == id);
+            var rental = WebService.FetchRentals().FirstOrDefault(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
@@ -112,8 +113,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Rentals.Update(rental);
-                DbContext.SaveChanges();
+                WebService.UpdateRental(rental);
 
                 return RedirectToAction("Index");
             }
@@ -123,7 +123,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var rental = DbContext.Rentals.Find(id);
+            var rental = WebService.FetchRentals().Find(id);
 
             if (rental == null)
                 return NotFound();
