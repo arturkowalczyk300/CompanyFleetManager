@@ -9,8 +9,6 @@ namespace CompanyFleetManagerWebApp.Controllers
 {
     public class RentalsController : Controller
     {
-        private readonly FleetDatabaseContext DbContext;
-
         public RentalsController(FleetDatabaseContext dbContext)
         {
             DbContext = dbContext;

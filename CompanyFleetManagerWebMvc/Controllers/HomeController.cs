@@ -10,7 +10,6 @@ namespace CompanyFleetManagerWebMvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly FleetDatabaseContext _dbContext;
 
         public HomeController(ILogger<HomeController> logger, FleetDatabaseContext dbContext)
         {
