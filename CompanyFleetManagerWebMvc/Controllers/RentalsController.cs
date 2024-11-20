@@ -84,7 +84,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var rental = WebService.FetchRentals().Find(id);
+            var rental = WebService.FetchRentals()?.Find(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
@@ -123,7 +123,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var rental = WebService.FetchRentals().Find(id);
+            var rental = WebService.FetchRentals()?.Find(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();

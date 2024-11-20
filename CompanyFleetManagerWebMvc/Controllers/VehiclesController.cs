@@ -58,7 +58,7 @@ namespace CompanyFleetManagerWebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var vehicle = WebService.FetchVehicles.Find(id);
+            var vehicle = WebService.FetchVehicles()?.Find(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -97,7 +97,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var vehicle = WebService.FetchVehicles().Find(id);
+            var vehicle = WebService.FetchVehicles().Find(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
