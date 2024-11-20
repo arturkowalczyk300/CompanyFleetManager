@@ -1,24 +1,60 @@
-﻿namespace CompanyFleetManager
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CompanyFleetManager
 {
     internal class Program
     {
-        public delegate void MenuCallback();
-
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var builder = WebApplication.CreateBuilder(args);
 
-            var actions = new Dictionary<string, MenuCallback>()
+            //add identity service
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
-                { "1", () => { Console.WriteLine("First option launched!");} }
-            };
+                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
 
-            var menu = new Menu(actions);
+                //prevent brute force attacks
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.AllowedForNewUsers = false;
+            })
+                .AddEntityFrameworkStores<UsersDatabaseContext>()
+                .AddDefaultTokenProviders();
 
-            while (true)
+            builder.Services.AddAuthentication();
+
+            //automatic logout
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                });
+
+            builder.Services.AddAuthorization();
+
+            builder.Services.AddControllers();
+
+            var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
             {
-                menu.Handle();
+                app.UseDeveloperExceptionPage(); // Show detailed errors in development
             }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers(); // Map API routes to controllers
+            });
+
+            // Start the application
+            app.Run();
         }
     }
 }
