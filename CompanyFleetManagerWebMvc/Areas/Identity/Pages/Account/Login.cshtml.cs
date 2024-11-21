@@ -105,7 +105,7 @@ namespace CompanyFleetManagerWebApp.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _webService.AuthenticateAsync(Input.Email, Input.Password);
+                var result = await _webService.LoginAsync(Input.Email, Input.Password);
 
                 if (result.IsSuccess)
                 {

@@ -21,9 +21,9 @@ namespace CompanyFleetManagerWebMvc
             });
 
             builder.Services.AddScoped<WebServiceAuthenticationApi>();
-            builder.Services.AddHttpClient<WebServiceFleetApi>(client =>
+            builder.Services.AddHttpClient<WebServiceAuthenticationApi>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:52819/api/auth/");
+                client.BaseAddress = new Uri("https://localhost:52819/api/users/");
             });
 
             // Add services to the container.
