@@ -1,5 +1,6 @@
 using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
+using CompanyFleetManagerWebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,14 @@ namespace CompanyFleetManagerWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add and configure web services
+            builder.Services.AddScoped<WebServiceFleetApi>();
+
+            builder.Services.AddHttpClient<WebServiceFleetApi>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:52819/api/fleet/");
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

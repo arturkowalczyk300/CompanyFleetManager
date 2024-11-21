@@ -17,11 +17,11 @@ namespace CompanyFleetManagerWebApp.Controllers
             WebService = webService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var rentals = WebService.FetchRentals();
-            var employees = WebService.FetchEmployees();
-            var vehicles = WebService.FetchVehicles();
+            var rentals = await WebService.FetchRentals();
+            var employees = await WebService.FetchEmployees();
+            var vehicles = await WebService.FetchVehicles();
 
             List<RentalViewModel> rentalViewModels = new List<RentalViewModel>();
             foreach (var rental in rentals)
@@ -36,18 +36,18 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Employees = WebService.FetchEmployees();
-            ViewBag.Vehicles = WebService.FetchVehicles();
+            ViewBag.Employees = await WebService.FetchEmployees();
+            ViewBag.Vehicles = await WebService.FetchVehicles();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Rental rental)
+        public async Task<IActionResult> Create(Rental rental)
         {
-            rental.RentedVehicle = WebService.FetchVehicles().FirstOrDefault(v => v.VehicleId == rental.RentedVehicleId);
-            rental.RentingEmployee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == rental.RentingEmployeeId);
+            rental.RentedVehicle = (await WebService.FetchVehicles()).FirstOrDefault(v => v.VehicleId == rental.RentedVehicleId);
+            rental.RentingEmployee = (await WebService.FetchEmployees()).FirstOrDefault(e => e.EmployeeId == rental.RentingEmployeeId);
 
             ModelState.Remove("RentedVehicle");
             ModelState.Remove("RentingEmployee");
@@ -59,7 +59,7 @@ namespace CompanyFleetManagerWebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                WebService.AddRental(rental);
+                await WebService.AddRental(rental);
 
                 return RedirectToAction("Index");
             }
@@ -68,12 +68,13 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var rental = WebService.FetchRentals().FirstOrDefault(r => r.RentalId == id);
+            var rentals = await WebService.FetchRentals();
+            var rental = rentals.FirstOrDefault(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
@@ -82,25 +83,27 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rental = WebService.FetchRentals()?.Find(r => r.RentalId == id);
+            var rentals = await WebService.FetchRentals();
+            var rental = rentals.Find(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
 
-            WebService.RemoveRental(rental);
+            await WebService.RemoveRental(rental);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var rental = WebService.FetchRentals().FirstOrDefault(r => r.RentalId == id);
+            var rentals = await WebService.FetchRentals();
+            var rental = rentals.FirstOrDefault(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();
@@ -109,11 +112,11 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public IActionResult EditConfirmed(int id, Rental rental)
+        public async Task<IActionResult> EditConfirmed(int id, Rental rental)
         {
             if (ModelState.IsValid)
             {
-                WebService.UpdateRental(rental);
+                await WebService.UpdateRental(rental);
 
                 return RedirectToAction("Index");
             }
@@ -121,9 +124,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             return View("Error", new ErrorViewModel() { DetailedMessage = $"Model state is not valid! Following entries are invalid: {Utils.GetNamesOfNonValidEntries(ModelState)}" });
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var rental = WebService.FetchRentals()?.Find(r => r.RentalId == id);
+            var rentals = await WebService.FetchRentals();
+            var rental = rentals.Find(r => r.RentalId == id);
 
             if (rental == null)
                 return NotFound();

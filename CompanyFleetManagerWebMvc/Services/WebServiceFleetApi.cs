@@ -5,61 +5,123 @@ namespace CompanyFleetManagerWebApp.Services
 {
     public class WebServiceFleetApi
     {
-        //employees
-        internal List<Employee>? FetchEmployees()
+        private readonly HttpClient _httpClient;
+
+        public WebServiceFleetApi(HttpClient httpClient)
         {
-            throw new NotImplementedException();
-        }
-        internal void AddEmployee(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-        internal void UpdateEmployee(Employee employee)
-        {
-            throw new NotImplementedException();
+            _httpClient = httpClient;
         }
 
-        internal void RemoveEmployee(Employee employee)
+        //employees
+        internal async Task<List<Employee>>? FetchEmployees()
         {
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<List<Employee>>("employees");
+        }
+        internal async Task AddEmployee(Employee employee)
+        {
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            var response = await _httpClient.PostAsJsonAsync("employees", employee);
+            response.EnsureSuccessStatusCode();
+        }
+        internal async Task UpdateEmployee(Employee employee)
+        {
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            var response = await _httpClient.PutAsJsonAsync("employees", employee);
+            response.EnsureSuccessStatusCode();
+        }
+
+        internal async Task RemoveEmployee(Employee employee)
+        {
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            var response = await _httpClient.DeleteAsync($"employees/{employee.EmployeeId}");
+            response.EnsureSuccessStatusCode();
         }
 
         // vehicles
-        internal List<Vehicle>? FetchVehicles()
+        internal async Task<List<Vehicle>>? FetchVehicles()
         {
-            throw new NotImplementedException();
-        }
-        internal void AddVehicle(Vehicle vehicle)
-        {
-            throw new NotImplementedException();
-        }
-        internal void UpdateVehicle(Vehicle vehicle)
-        {
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<List<Vehicle>>("vehicles");
         }
 
-        internal void RemoveVehicle(Vehicle vehicle)
+        internal async Task AddVehicle(Vehicle vehicle)
         {
-            throw new NotImplementedException();
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException(nameof(vehicle));
+            }
+
+            var response = await _httpClient.PostAsJsonAsync("vehicles", vehicle);
+            response.EnsureSuccessStatusCode();
+        }
+        internal async Task UpdateVehicle(Vehicle vehicle)
+        {
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException(nameof(vehicle));
+            }
+
+            var response = await _httpClient.PutAsJsonAsync("vehicles", vehicle);
+            response.EnsureSuccessStatusCode();
+        }
+
+        internal async Task RemoveVehicle(Vehicle vehicle)
+        {
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException(nameof(vehicle));
+            }
+
+            var response = await _httpClient.DeleteAsync($"vehicles/{vehicle.VehicleId}");
+            response.EnsureSuccessStatusCode();
         }
 
         // rentals
-        internal List<Rental>? FetchRentals()
+        internal async Task<List<Rental>>? FetchRentals()
         {
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<List<Rental>>("rentals");
         }
-        internal void AddRental(Rental rental)
+        internal async Task AddRental(Rental rental)
         {
-            throw new NotImplementedException();
+            if (rental == null)
+            {
+                throw new ArgumentNullException(nameof(rental));
+            }
+
+            var response = await _httpClient.PostAsJsonAsync("rentals", rental);
+            response.EnsureSuccessStatusCode();
         }
-        internal void UpdateRental(Rental rental)
+        internal async Task UpdateRental(Rental rental)
         {
-            throw new NotImplementedException();
+            if (rental == null)
+            {
+                throw new ArgumentNullException(nameof(rental));
+            }
+
+            var response = await _httpClient.PutAsJsonAsync("rentals", rental);
+            response.EnsureSuccessStatusCode();
         }
 
-        internal void RemoveRental(Rental rental)
+        internal async Task RemoveRental(Rental rental)
         {
-            throw new NotImplementedException();
+            if (rental == null)
+            {
+                throw new ArgumentNullException(nameof(rental));
+            }
+
+            var response = await _httpClient.DeleteAsync($"rentals/{rental.RentalId}");
+            response.EnsureSuccessStatusCode();
         }
     }
 }

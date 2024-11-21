@@ -15,9 +15,9 @@ namespace CompanyFleetManagerWebApp.Controllers
         {
             WebService = webService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var employees = WebService.FetchEmployees();
+            var employees = await WebService.FetchEmployees();
             return View(employees);
         }
 
@@ -29,11 +29,11 @@ namespace CompanyFleetManagerWebApp.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public async Task<IActionResult> Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                WebService.AddEmployee(employee);
+                await WebService.AddEmployee(employee);
 
                 return RedirectToAction("Index");
             }
@@ -42,12 +42,13 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var employee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == id);
+            var employees = await WebService.FetchEmployees();
+            var employee = employees.FirstOrDefault(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
@@ -56,25 +57,27 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = WebService.FetchEmployees()?.Find(e => e.EmployeeId == id);
+            var employees = await WebService.FetchEmployees();
+            var employee = employees.Find(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
 
-            WebService.RemoveEmployee(employee);
+            await WebService.RemoveEmployee(employee);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var employee = WebService.FetchEmployees().FirstOrDefault(e => e.EmployeeId == id);
+            var employees = await WebService.FetchEmployees();
+            var employee =  employees.FirstOrDefault(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
@@ -83,11 +86,11 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public IActionResult EditConfirmed(int id, Employee employee)
+        public async Task<IActionResult> EditConfirmed(int id, Employee employee)
         {
             if (ModelState.IsValid)
             {
-                WebService.UpdateEmployee(employee);
+                await WebService.UpdateEmployee(employee);
 
                 return RedirectToAction("Index");
             }
@@ -95,9 +98,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             return View("Error", new ErrorViewModel() { DetailedMessage = $"Model state is not valid! Following entries are invalid: {Utils.GetNamesOfNonValidEntries(ModelState)}" });
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var employee = WebService.FetchEmployees()?.Find(e => e.EmployeeId == id);
+            var employees = await WebService.FetchEmployees();
+            var employee = employees.Find(e => e.EmployeeId == id);
 
             if (employee == null)
                 return NotFound();
