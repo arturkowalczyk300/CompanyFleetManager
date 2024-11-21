@@ -22,6 +22,13 @@ namespace CompanyFleetManager.Controllers
             return CreatedAtAction(nameof(GetVehicles), new { id = vehicle.VehicleId }, vehicle);
         }
 
+        [HttpPut("vehicles")]
+        public IActionResult UpdateVehicle(Vehicle vehicle)
+        {
+            _dbAccess.UpdateVehicle(vehicle);
+            return NoContent();
+        }
+
         [HttpPost("employees")]
         public IActionResult AddEmployee(Employee employee)
         {
@@ -29,11 +36,25 @@ namespace CompanyFleetManager.Controllers
             return CreatedAtAction(nameof(GetEmployees), new { id = employee.EmployeeId }, employee);
         }
 
+        [HttpPut("employees")]
+        public IActionResult UpdateEmployee(Employee employee)
+        {
+            _dbAccess.UpdateEmployee(employee);
+            return NoContent();
+        }
+
         [HttpPost("rentals")]
         public IActionResult AddRental(Rental rental)
         {
             _dbAccess.AddRental(rental);
             return CreatedAtAction(nameof(GetRentals), new { id = rental.RentalId }, rental);
+        }
+
+        [HttpPut("rentals")]
+        public IActionResult UpdateRental(Rental rental)
+        {
+            _dbAccess.UpdateRental(rental);
+            return NoContent();
         }
 
         [HttpGet("vehicles")]
