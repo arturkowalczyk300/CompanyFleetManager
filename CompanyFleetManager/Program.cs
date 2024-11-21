@@ -36,6 +36,10 @@ namespace CompanyFleetManager
 
             builder.Services.AddControllers();
 
+            //api controllers and database
+            builder.Services.AddDbContext<FleetDatabaseContext>();
+            builder.Services.AddScoped<FleetDatabaseAccess>();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
