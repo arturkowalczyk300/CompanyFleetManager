@@ -12,9 +12,6 @@ namespace CompanyFleetManagerWebMvc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
-            
-
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -22,17 +19,6 @@ namespace CompanyFleetManagerWebMvc
             builder.Services.AddRazorPages();
 
             var app = builder.Build();
-
-            //add admin account if not already created
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                Utils.CreateRoles(
-                    services.GetRequiredService<UserManager<IdentityUser>>(),
-                    services.GetRequiredService<RoleManager<IdentityRole>>()
-                    ).Wait();
-            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

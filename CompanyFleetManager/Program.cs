@@ -42,6 +42,17 @@ namespace CompanyFleetManager
 
             var app = builder.Build();
 
+            //add admin account if not already created
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+
+            //    Utils.CreateRoles(
+            //        services.GetRequiredService<UserManager<IdentityUser>>(),
+            //        services.GetRequiredService<RoleManager<IdentityRole>>()
+            //        ).Wait();
+            //}
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage(); // Show detailed errors in development
