@@ -15,10 +15,15 @@ namespace CompanyFleetManagerWebMvc
 
             // Add and configure web services
             builder.Services.AddScoped<WebServiceFleetApi>();
-
             builder.Services.AddHttpClient<WebServiceFleetApi>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:52819/api/fleet/");
+            });
+
+            builder.Services.AddScoped<WebServiceAuthenticationApi>();
+            builder.Services.AddHttpClient<WebServiceFleetApi>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:52819/api/auth/");
             });
 
             // Add services to the container.
@@ -27,6 +32,16 @@ namespace CompanyFleetManagerWebMvc
             //Add Razor pages service
             builder.Services.AddRazorPages();
 
+            //add cookies for automatic logout and configure login, logout paths
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.LoginPath = "/Identity/Account/Login";
+                    options.LogoutPath = "/Identity/Account/Logout";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                });
+
+            //build the web app
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -45,6 +60,9 @@ namespace CompanyFleetManagerWebMvc
             app.UseRouting();
 
             app.MapRazorPages();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
