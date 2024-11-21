@@ -9,17 +9,22 @@ namespace CompanyFleetManager
             await CreateAdminUserTask(userManager, roleManager);
         }
 
-        private static IConfiguration GetConfiguration()
-        {
-            return new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-        }
-
         private static async Task CreateAdminUserTask(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             Console.WriteLine("Creating admin account!");
 
-            var adminEmail = "admin@fleet.com";
-            var adminPassword = GetConfiguration()["AdminSettings:AdminPassword"];
+            var adminEmail = Environment.GetEnvironmentVariable("CFM_ADMIN_EMAIL");
+            var adminPassword = Environment.GetEnvironmentVariable("CFM_ADMIN_PASSWORD");
+
+            if (string.IsNullOrWhiteSpace(adminEmail))
+            {
+                throw new Exception("CFM_ADMIN_EMAIL env. variable is not set! Configuration is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(adminPassword))
+            {
+                throw new Exception("CFM_ADMIN_PASSWORD env. variable is not set! Configuration is required.");
+            }
 
             if (!await roleManager.RoleExistsAsync("Admin"))
                 await roleManager.CreateAsync(new IdentityRole("Admin"));

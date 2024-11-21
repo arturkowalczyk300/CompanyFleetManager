@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace CompanyFleetManager
 {
@@ -8,31 +10,34 @@ namespace CompanyFleetManager
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            ////add identity service
-            //builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-            //{
-            //    options.Password.RequiredLength = 8;
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireNonAlphanumeric = false;
+            //add environment variables
+            builder.Configuration.AddEnvironmentVariables();
 
-            //    //prevent brute force attacks
-            //    options.Lockout.MaxFailedAccessAttempts = 3;
-            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-            //    options.Lockout.AllowedForNewUsers = false;
-            //})
-            //    .AddEntityFrameworkStores<UsersDatabaseContext>()
-            //    .AddDefaultTokenProviders();
+            //add identity service
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
 
-            //builder.Services.AddAuthentication();
+                //prevent brute force attacks
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.AllowedForNewUsers = false;
+            })
+                .AddEntityFrameworkStores<UsersDatabaseContext>()
+                .AddDefaultTokenProviders();
 
-            ////automatic logout
-            //builder.Services.AddAuthentication("CookieAuthentication")
-            //    .AddCookie("CookieAuthentication", options =>
-            //    {
-            //        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-            //    });
+            builder.Services.AddAuthentication();
 
-            //builder.Services.AddAuthorization();
+            //automatic logout
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                });
+
+            builder.Services.AddAuthorization();
 
             builder.Services.AddControllers();
 
@@ -40,18 +45,21 @@ namespace CompanyFleetManager
             builder.Services.AddDbContext<FleetDatabaseContext>();
             builder.Services.AddScoped<FleetDatabaseAccess>();
 
+            builder.Services.AddDbContext<UsersDatabaseContext>();
+            builder.Services.AddScoped<UsersDatabaseAccess>();
+
             var app = builder.Build();
 
-            //add admin account if not already created
-            //using (var scope = app.Services.CreateScope())
-            //{
-            //    var services = scope.ServiceProvider;
+            // add admin account if not already created
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
 
-            //    Utils.CreateRoles(
-            //        services.GetRequiredService<UserManager<IdentityUser>>(),
-            //        services.GetRequiredService<RoleManager<IdentityRole>>()
-            //        ).Wait();
-            //}
+                Utils.CreateRoles(
+                    services.GetRequiredService<UserManager<IdentityUser>>(),
+                    services.GetRequiredService<RoleManager<IdentityRole>>()
+                    ).Wait();
+            }
 
             if (app.Environment.IsDevelopment())
             {
@@ -59,7 +67,7 @@ namespace CompanyFleetManager
             }
 
             app.UseAuthentication();
-//            app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseRouting();
 
