@@ -23,6 +23,12 @@ namespace CompanyFleetManager
             DbContext.SaveChanges();
         }
 
+        public void UpdateVehicle(Vehicle vehicle)
+        {
+            DbContext.Vehicles.Update(vehicle);
+            DbContext.SaveChanges();
+        }
+
         public void AddVehicles(params Vehicle[] vehicles)
         {
             DbContext.Vehicles.AddRange(vehicles);
@@ -34,6 +40,12 @@ namespace CompanyFleetManager
             DbContext.Employees.Add(employee);
             DbContext.SaveChanges();
         }
+        public void UpdateEmployee(Employee employee)
+        {
+            DbContext.Employees.Update(employee);
+            DbContext.SaveChanges();
+        }
+
         public void AddEmployees(params Employee[] employees)
         {
             DbContext.Employees.AddRange(employees);
@@ -43,6 +55,12 @@ namespace CompanyFleetManager
         public void AddRental(Rental rental)
         {
             DbContext.Rentals.Add(rental);
+            DbContext.SaveChanges();
+        }
+
+        public void UpdateRental(Rental rental)
+        {
+            DbContext.Rentals.Update(rental);
             DbContext.SaveChanges();
         }
 

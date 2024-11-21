@@ -8,8 +8,8 @@ namespace CompanyFleetManager.Models
 {
     public class PhoneNumber
     {
-        public int? CountryCode = 48;
-        public int? MainNumber;
+        public int? CountryCode { get; set; } = 48;
+        public int? MainNumber { get; set; }
 
         public PhoneNumber(int? CountryCode, int? MainNumber)
         {

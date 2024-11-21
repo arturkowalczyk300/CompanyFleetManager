@@ -1,24 +1,75 @@
-﻿namespace CompanyFleetManager
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections;
+
+namespace CompanyFleetManager
 {
     internal class Program
     {
-        public delegate void MenuCallback();
-
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var builder = WebApplication.CreateBuilder(args);
 
-            var actions = new Dictionary<string, MenuCallback>()
+            //add environment variables
+            builder.Configuration.AddEnvironmentVariables();
+
+            //add identity service
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
-                { "1", () => { Console.WriteLine("First option launched!");} }
-            };
+                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
 
-            var menu = new Menu(actions);
+                //prevent brute force attacks
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.AllowedForNewUsers = false;
+            })
+                .AddEntityFrameworkStores<UsersDatabaseContext>()
+                .AddDefaultTokenProviders();
 
-            while (true)
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
+
+            builder.Services.AddControllers();
+
+            //api controllers and database
+            builder.Services.AddDbContext<FleetDatabaseContext>();
+            builder.Services.AddScoped<FleetDatabaseAccess>();
+
+            builder.Services.AddDbContext<UsersDatabaseContext>();
+            builder.Services.AddScoped<UsersDatabaseAccess>();
+
+            var app = builder.Build();
+
+            // add admin account if not already created
+            using (var scope = app.Services.CreateScope())
             {
-                menu.Handle();
+                var services = scope.ServiceProvider;
+
+                Utils.CreateRoles(
+                    services.GetRequiredService<UserManager<IdentityUser>>(),
+                    services.GetRequiredService<RoleManager<IdentityRole>>()
+                    ).Wait();
             }
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage(); // Show detailed errors in development
+            }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers(); // Map API routes to controllers
+            });
+
+            // Start the application
+            app.Run();
         }
     }
 }

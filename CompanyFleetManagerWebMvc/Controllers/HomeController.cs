@@ -1,5 +1,6 @@
 using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
+using CompanyFleetManagerWebApp.Services;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,12 @@ namespace CompanyFleetManagerWebMvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly FleetDatabaseContext _dbContext;
+        private readonly WebServiceFleetApi _webService;
 
-        public HomeController(ILogger<HomeController> logger, FleetDatabaseContext dbContext)
+        public HomeController(ILogger<HomeController> logger, WebServiceFleetApi webService)
         {
             _logger = logger;
-            _dbContext = dbContext;
+            _webService = webService;
         }
 
         public IActionResult Index()
@@ -43,11 +44,14 @@ namespace CompanyFleetManagerWebMvc.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Seed()
         {
-            var error = Utils.SeedData(_dbContext);
+            throw new NotImplementedException();
+
+            //var error = Utils.SeedData(_dbContext);
+            var error = "Error";
 
             if (error is not null)
             {
-                return View("Error", new ErrorViewModel() { DetailedMessage = $"Seeding data failed! Reason: {error.Message}" });
+                //return View("Error", new ErrorViewModel() { DetailedMessage = $"Seeding data failed! Reason: {error.Message}" });
             }
 
             return RedirectToAction("Index");

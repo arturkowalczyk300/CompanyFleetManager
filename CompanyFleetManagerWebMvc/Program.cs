@@ -1,5 +1,6 @@
 using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
+using CompanyFleetManagerWebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -12,51 +13,18 @@ namespace CompanyFleetManagerWebMvc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Register DBContext (fleet database)
-            var fleetConnectionString = builder.Configuration.GetConnectionString("FleetConnection");
-            if (fleetConnectionString == null || fleetConnectionString.Equals(""))
-                fleetConnectionString = Environment.GetEnvironmentVariable("fleet_connection_string");
-
-            builder.Services.AddDbContext<FleetDatabaseContext>(options =>
+            // Add and configure web services
+            builder.Services.AddScoped<WebServiceFleetApi>();
+            builder.Services.AddHttpClient<WebServiceFleetApi>(client =>
             {
-                options.UseSqlServer(fleetConnectionString);
+                client.BaseAddress = new Uri("https://localhost:52819/api/fleet/");
             });
 
-            //Register DBContext (users identities database)
-            var usersConnectionString = builder.Configuration.GetConnectionString("UsersConnection");
-            if (usersConnectionString == null || usersConnectionString.Equals(""))
-                usersConnectionString = Environment.GetEnvironmentVariable("users_connection_string");
-
-            builder.Services.AddDbContext<UsersDatabaseContext>(options =>
+            builder.Services.AddScoped<WebServiceAuthenticationApi>();
+            builder.Services.AddHttpClient<WebServiceAuthenticationApi>(client =>
             {
-                options.UseSqlServer(usersConnectionString);
+                client.BaseAddress = new Uri("https://localhost:52819/api/users/");
             });
-
-            //add identity service
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireDigit = true;
-                options.Password.RequireNonAlphanumeric = false;
-
-                //prevent brute force attacks
-                options.Lockout.MaxFailedAccessAttempts = 3;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-                options.Lockout.AllowedForNewUsers = false;
-            })
-                .AddEntityFrameworkStores<UsersDatabaseContext>()
-                .AddDefaultTokenProviders();
-
-            builder.Services.AddAuthentication();
-
-            //automatic logout
-            builder.Services.AddAuthentication("CookieAuthentication")
-                .AddCookie("CookieAuthentication", options =>
-                {
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-                });
-
-            builder.Services.AddAuthorization();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -64,18 +32,17 @@ namespace CompanyFleetManagerWebMvc
             //Add Razor pages service
             builder.Services.AddRazorPages();
 
+            //add cookies for automatic logout and configure login, logout paths
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.LoginPath = "/Identity/Account/Login";
+                    options.LogoutPath = "/Identity/Account/Logout";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                });
+
+            //build the web app
             var app = builder.Build();
-
-            //add admin account if not already created
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                Utils.CreateRoles(
-                    services.GetRequiredService<UserManager<IdentityUser>>(),
-                    services.GetRequiredService<RoleManager<IdentityRole>>()
-                    ).Wait();
-            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -92,10 +59,10 @@ namespace CompanyFleetManagerWebMvc
 
             app.UseRouting();
 
+            app.MapRazorPages();
+
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",

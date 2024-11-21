@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerWebApp.Services;
 using CompanyFleetManagerWebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -8,16 +9,16 @@ namespace CompanyFleetManagerWebApp.Controllers
 {
     public class VehiclesController : Controller
     {
-        private readonly FleetDatabaseContext DbContext;
+        WebServiceFleetApi WebService;
 
-        public VehiclesController(FleetDatabaseContext dbContext)
+        public VehiclesController(WebServiceFleetApi webService)
         {
-            DbContext = dbContext;
+            WebService = webService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vehicles = DbContext.Vehicles.ToList();
+            var vehicles = await WebService.FetchVehicles();
             return View(vehicles);
         }
 
@@ -28,12 +29,11 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Vehicle vehicle) //submit button pressed
+        public async Task<IActionResult> Create(Vehicle vehicle) //submit button pressed
         {
             if (ModelState.IsValid)
             {
-                DbContext.Vehicles.Add(vehicle);
-                DbContext.SaveChanges();
+                await WebService.AddVehicle(vehicle);
 
                 return RedirectToAction("Index");
             }
@@ -42,12 +42,13 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var vehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == id);
+            var vehicles = await WebService.FetchVehicles();
+            var vehicle = vehicles.FirstOrDefault(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -56,26 +57,27 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vehicle = DbContext.Vehicles.Find(id);
+            var vehicles = await WebService.FetchVehicles();
+            var vehicle = vehicles.Find(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
 
-            DbContext.Vehicles.Remove(vehicle);
-            DbContext.SaveChanges();
+            await WebService.RemoveVehicle(vehicle);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var vehicle = DbContext.Vehicles.FirstOrDefault(v => v.VehicleId == id);
+            var vehicles = await WebService.FetchVehicles();
+            var vehicle = vehicles.FirstOrDefault(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -84,12 +86,11 @@ namespace CompanyFleetManagerWebApp.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public IActionResult EditConfirmed(int id, Vehicle vehicle)
+        public async Task<IActionResult> EditConfirmed(int id, Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                DbContext.Vehicles.Update(vehicle);
-                DbContext.SaveChanges();
+                await WebService.UpdateVehicle(vehicle);
 
                 return RedirectToAction("Index");
             }
@@ -97,9 +98,10 @@ namespace CompanyFleetManagerWebApp.Controllers
             return View("Error", new ErrorViewModel() { DetailedMessage = $"Model state is not valid! Following entries are invalid: {Utils.GetNamesOfNonValidEntries(ModelState)}" });
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var vehicle = DbContext.Vehicles.Find(id);
+            var vehicles = await WebService.FetchVehicles();
+            var vehicle = vehicles.Find(v => v.VehicleId == id);
 
             if (vehicle == null)
                 return NotFound();
