@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject CompanyFleetManagerWebApp.Models.UserLoggedState UserState
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -40,11 +42,11 @@
                     </ul>
 
                     <ul class="navbar-nav">
-                        @if (User.Identity.IsAuthenticated)
+                        @if (UserState.IsUserLogged)
                         {
-                            <li class=" nav-item" style="margin-top: 5px;">
-                                <span class="navbar-text text-primary">
-                                    Logged in as: @User.Identity.Name
+                            <li class=" nav-item" style="margin-top: 8px;">
+                                <span class="navbar-text">
+                                    Logged in as: @UserState.LoggedUserEmail
                                 </span>
                             </li>
                             <li class=" nav-item" style="margin-left: 10px;">

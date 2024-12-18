@@ -1,5 +1,6 @@
 using CompanyFleetManager;
 using CompanyFleetManagerWebApp;
+using CompanyFleetManagerWebApp.Models;
 using CompanyFleetManagerWebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,14 +33,8 @@ namespace CompanyFleetManagerWebMvc
             //Add Razor pages service
             builder.Services.AddRazorPages();
 
-            //add cookies for automatic logout and configure login, logout paths
-            builder.Services.AddAuthentication("CookieAuthentication")
-                .AddCookie("CookieAuthentication", options =>
-                {
-                    options.LoginPath = "/Identity/Account/Login";
-                    options.LogoutPath = "/Identity/Account/Logout";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-                });
+            //login state info singleton
+            builder.Services.AddSingleton<UserLoggedState>();
 
             //build the web app
             var app = builder.Build();
@@ -60,9 +55,6 @@ namespace CompanyFleetManagerWebMvc
             app.UseRouting();
 
             app.MapRazorPages();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

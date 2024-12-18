@@ -1,4 +1,5 @@
 ﻿
+using CompanyFleetManagerWebApp.Models;
 using Microsoft.AspNetCore.Identity.Data;
 
 namespace CompanyFleetManagerWebApp.Services
@@ -6,10 +7,12 @@ namespace CompanyFleetManagerWebApp.Services
     public class WebServiceAuthenticationApi
     {
         private readonly HttpClient _httpClient;
+        private readonly UserLoggedState _userLoggedState;
 
-        public WebServiceAuthenticationApi(HttpClient httpClient)
+        public WebServiceAuthenticationApi(HttpClient httpClient, UserLoggedState userLoggedState)
         {
             _httpClient = httpClient;
+            _userLoggedState = userLoggedState;
         }
 
         internal async Task<LoginResult> LoginAsync(string email, string password)
@@ -19,6 +22,8 @@ namespace CompanyFleetManagerWebApp.Services
             if (result.IsSuccessStatusCode)
             {
                 var loginResult = new LoginResult() { IsSuccess = true };
+                _userLoggedState.LoggedUserEmail = email;
+                _userLoggedState.IsUserLogged = true;
                 return loginResult;
             }
 
@@ -33,29 +38,30 @@ namespace CompanyFleetManagerWebApp.Services
         {
             var result = await _httpClient.PostAsync("logout", null);
 
-            return result.IsSuccessStatusCode;
+            if (result.IsSuccessStatusCode)
+            {
+                _userLoggedState.IsUserLogged = false;
+                _userLoggedState.LoggedUserEmail = string.Empty;
+                return true;
+            }
+
+            return false; //logout failed
         }
 
-        internal async Task<AuthStatus> GetAuthStatusAsync()
+        internal async Task<UserLoggedState> GetAuthStatusAsync()
         {
             var result = await _httpClient.GetAsync("status");
 
             if (result.IsSuccessStatusCode)
             {
-                var authStatus = await result.Content.ReadFromJsonAsync<AuthStatus>();
-                return authStatus ?? new AuthStatus { IsAuthenticated = false };
+                var authStatus = await result.Content.ReadFromJsonAsync<UserLoggedState>();
+                return authStatus ?? new UserLoggedState { IsUserLogged = false };
             }
 
-            return new AuthStatus
+            return new UserLoggedState
             {
-                IsAuthenticated = false
+                IsUserLogged = false
             };
-        }
-
-        public class AuthStatus
-        {
-            public bool IsAuthenticated { get; set; }
-            public string Username { get; set; }
         }
     }
 }
