@@ -14,11 +14,11 @@ namespace CompanyFleetManagerWebApp.Services
 
         internal async Task<LoginResult> LoginAsync(string email, string password)
         {
-            var result = await _httpClient.PostAsJsonAsync("api/users/login", new LoginRequest { Email = email, Password = password });
+            var result = await _httpClient.PostAsJsonAsync("login", new LoginRequest { Email = email, Password = password });
 
             if (result.IsSuccessStatusCode)
             {
-                var loginResult = await result.Content.ReadFromJsonAsync<LoginResult>();
+                var loginResult = new LoginResult() { IsSuccess = true };
                 return loginResult;
             }
 
@@ -31,14 +31,14 @@ namespace CompanyFleetManagerWebApp.Services
 
         internal async Task<bool> LogoutAsync()
         {
-            var result = await _httpClient.PostAsync("api/users/logout", null);
+            var result = await _httpClient.PostAsync("logout", null);
 
             return result.IsSuccessStatusCode;
         }
 
         internal async Task<AuthStatus> GetAuthStatusAsync()
         {
-            var result = await _httpClient.GetAsync("api/users/status");
+            var result = await _httpClient.GetAsync("status");
 
             if (result.IsSuccessStatusCode)
             {
