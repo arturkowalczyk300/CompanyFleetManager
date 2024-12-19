@@ -1,4 +1,5 @@
 ﻿@page
+@model LogoutModel
 @inject CompanyFleetManagerWebApp.Models.UserLoggedState UserState
 @{
     ViewData["Title"] = "Log out";
@@ -9,8 +10,8 @@
     @{
         if (UserState.IsUserLogged)
         {
-            <form class="form-inline" id="formLogout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button id="buttonLogout" onClick="showToastThenSubmit('You have logged out!', 'formLogout', 'success')" type="button" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+            <form id="formLogout" method="post">
+                <button id="buttonLogout" onClick="showToastThenSubmit('You have logged out!', 'formLogout', 'success')" type="submit" class="nav-link btn btn-link">Click here to Logout</button>
             </form>
         }
         else

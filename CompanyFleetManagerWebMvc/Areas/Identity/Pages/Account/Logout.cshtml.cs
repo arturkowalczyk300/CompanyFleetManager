@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using CompanyFleetManagerWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,28 +15,32 @@ namespace CompanyFleetManagerWebApp.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly WebServiceAuthenticationApi _webService;
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(ILogger<LogoutModel> logger, WebServiceAuthenticationApi webService)
         {
-            _signInManager = signInManager;
             _logger = logger;
+            _webService = webService;
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
+            returnUrl ??= Url.Content("~/");
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await _webService.LogoutAsync();
+
+            if (result)
             {
+                _logger.LogInformation("User logged out.");
                 return LocalRedirect(returnUrl);
             }
             else
             {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
-                return RedirectToPage();
+                _logger.LogInformation("Logging out failed.");
+                return Page();
             }
         }
     }
