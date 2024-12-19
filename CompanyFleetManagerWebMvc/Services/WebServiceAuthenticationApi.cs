@@ -48,13 +48,20 @@ namespace CompanyFleetManagerWebApp.Services
             return false; //logout failed
         }
 
-        internal async Task<UserLoggedState> GetAuthStatusAsync()
+        internal async Task<UserLoggedState> RetrieveAuthStatusAsync()
         {
             var result = await _httpClient.GetAsync("status");
 
             if (result.IsSuccessStatusCode)
             {
                 var authStatus = await result.Content.ReadFromJsonAsync<UserLoggedState>();
+
+                if(authStatus != null)
+                {
+                _userLoggedState.IsUserLogged = authStatus.IsUserLogged;
+                _userLoggedState.LoggedUserEmail = authStatus.LoggedUserEmail;
+                }
+
                 return authStatus ?? new UserLoggedState { IsUserLogged = false };
             }
 

@@ -60,6 +60,14 @@ namespace CompanyFleetManagerWebMvc
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            //check login state
+            using (var scope = app.Services.CreateScope())
+            {
+                var authService = scope.ServiceProvider.GetRequiredService<WebServiceAuthenticationApi>();
+
+                authService.RetrieveAuthStatusAsync().Wait();
+            }
+
             app.Run();
         }
     }
