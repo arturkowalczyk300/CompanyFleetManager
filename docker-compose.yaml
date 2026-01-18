@@ -15,7 +15,7 @@ services:
             - app-network
 
     aspnetcore:
-        image: mcr.microsoft.com/dotnet/sdk:8.0
+        image: mcr.microsoft.com/dotnet/sdk:10.0
         container_name: aspnetcoreapp
         ports:
             - "5000:8080"
@@ -34,7 +34,7 @@ services:
             echo \"Fleet migrations applied\" &&
             dotnet-ef database update -v --no-build --project ./CompanyFleetManager/ --context UsersDatabaseContext &&
             echo \"Users migrations applied\" &&
-            exec dotnet ./CompanyFleetManagerWebMvc/bin/Release/net8.0/CompanyFleetManagerWebApp.dll"
+            exec dotnet ./CompanyFleetManagerWebMvc/bin/Release/net10.0/CompanyFleetManagerWebApp.dll"
         depends_on:
             - mssql
         networks:
